@@ -1,12 +1,20 @@
-import React from "react";
+import React, { useRef, useState } from "react";
 import styled from "styled-components";
 import { Accordion, Card, Collapse, Col } from "react-bootstrap";
-import { useState } from "react";
 import { setSideNavOpen } from "../redux/actions";
 import { useDispatch } from "react-redux";
 
 export default function SideNav() {
   const dispatch = useDispatch();
+  const sideNavRef = useRef();
+  const [activeCategory, setActiveCategory] = useState();
+
+  const handleCategoryClick = (index) => {
+    // If the clicked category was already the active category, we're now
+    // closing it and no categories should be active, so set to -1.
+    if (activeCategory === index) setActiveCategory(-1);
+    else setActiveCategory(index);
+  };
 
   const data = [
     {
@@ -44,13 +52,22 @@ export default function SideNav() {
   ];
 
   return (
-    <NavContainer>
-      <Navigation>
+    <NavContainer className="bg-dark" ref={sideNavRef}>
+      <Navigation id="side-nav">
         {data.map((ele, index) => {
           return (
-            <NavCategory key={index}>
-              <Navigation.Toggle as={NavCategory.Header} eventKey={index}>
+            <Card key={index} className="bg-dark">
+              <Navigation.Toggle
+                as={Category}
+                eventKey={index}
+                onClick={() => handleCategoryClick(index)}
+              >
                 {ele.category}
+                {activeCategory === index ? (
+                  <i class="fas fa-chevron-down"></i>
+                ) : (
+                  <i class="fas fa-chevron-right"></i>
+                )}
               </Navigation.Toggle>
               <Navigation.Collapse eventKey={index}>
                 <NavDropdownArea>
@@ -65,7 +82,7 @@ export default function SideNav() {
                   </NavLinkList>
                 </NavDropdownArea>
               </Navigation.Collapse>
-            </NavCategory>
+            </Card>
           );
         })}
       </Navigation>
@@ -75,24 +92,32 @@ export default function SideNav() {
 
 // Styles
 const NavContainer = styled.div`
-  border-right: 2px solid black;
   height: 100vh;
   display: flex;
   position: fixed;
   background: white;
   z-index: 1;
+  box-shadow: 1px 0 3px rgba(0, 0, 0, 0.3);
 `;
 
 const Navigation = styled(Accordion)`
   width: 200px;
+  user-select: none;
+  font-family: "Roboto", sans-serif;
 `;
 
-const NavCategory = styled(Card)`
-  color: green;
+const Category = styled(Card.Header)`
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  cursor: pointer;
+  border-top: 1px solid rgba(255, 255, 255, 0.2);
+  font-weight: 600;
 `;
 
 const NavDropdownArea = styled(Card.Body)`
-  background: rgba(0, 0, 0, 0.2);
+  background: rgba(255, 255, 255, 0.9);
   padding: 0;
 `;
 
@@ -100,8 +125,21 @@ const NavLinkList = styled.ul`
   list-style: none;
   padding: 0;
   margin: 0;
+  border-top: 1px solid rgba(0, 0, 0, 0.05);
 
   & li {
-    color: red;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+    cursor: pointer;
+    padding: 5px 10px;
+  }
+
+  & li:hover {
+    background-color: rgba(0, 0, 0, 0.07);
+    transition: background-color 0.2s;
+  }
+
+  & li:active {
+    background-color: rgba(0, 0, 0, 0.3);
+    transition: background-color 0.2s;
   }
 `;

@@ -23,4 +23,8 @@ const ToggleButton = styled.a`
   @media (max-width: 768px) {
     visibility: visible;
   }
+
+  i {
+    color: white;
+  }
 `;
