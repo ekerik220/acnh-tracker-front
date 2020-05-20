@@ -2,43 +2,72 @@ import React from "react";
 import styled from "styled-components";
 import { Accordion, Card, Collapse, Col } from "react-bootstrap";
 import { useState } from "react";
+import { setSideNavOpen } from "../redux/actions";
+import { useDispatch } from "react-redux";
 
 export default function SideNav() {
-  const [open, setOpen] = useState(true);
+  const dispatch = useDispatch();
+
+  const data = [
+    {
+      category: "Furniture",
+      types: [
+        { type: "Housewares", link: "url" },
+        { type: "Misc.", link: "url" },
+        { type: "Wall-mounted", link: "url" },
+      ],
+    },
+    {
+      category: "Clothing",
+      types: [
+        { type: "Tops", link: "url" },
+        { type: "Bottoms", link: "url" },
+        { type: "Dress-up", link: "url" },
+        { type: "Headwear", link: "url" },
+        { type: "Accessories", link: "url" },
+        { type: "Socks", link: "url" },
+        { type: "Shoes", link: "url" },
+        { type: "Bags", link: "url" },
+        { type: "Umbrellas", link: "url" },
+      ],
+    },
+    {
+      category: "Other",
+      types: [
+        { type: "Wallpaper", link: "url" },
+        { type: "Flooring", link: "url" },
+        { type: "Rugs", link: "url" },
+        { type: "Fossils", link: "url" },
+        { type: "Music", link: "url" },
+      ],
+    },
+  ];
 
   return (
     <NavContainer>
       <Navigation>
-        <NavCategory>
-          <Navigation.Toggle as={NavCategory.Header} eventKey="0">
-            Click me!
-          </Navigation.Toggle>
-          <Navigation.Collapse eventKey="0">
-            <NavDropdownArea>
-              <NavLinkList>
-                <li data-toggle="collapse" data-target=".sidebar-collapse">
-                  test
-                </li>
-                <li>test</li>
-                <li>test</li>
-              </NavLinkList>
-            </NavDropdownArea>
-          </Navigation.Collapse>
-        </NavCategory>
-        <NavCategory>
-          <Navigation.Toggle as={NavCategory.Header} eventKey="1">
-            Click me!
-          </Navigation.Toggle>
-          <Navigation.Collapse eventKey="1">
-            <NavDropdownArea>
-              <NavLinkList>
-                <li>test</li>
-                <li>test</li>
-                <li>test</li>
-              </NavLinkList>
-            </NavDropdownArea>
-          </Navigation.Collapse>
-        </NavCategory>
+        {data.map((ele, index) => {
+          return (
+            <NavCategory key={index}>
+              <Navigation.Toggle as={NavCategory.Header} eventKey={index}>
+                {ele.category}
+              </Navigation.Toggle>
+              <Navigation.Collapse eventKey={index}>
+                <NavDropdownArea>
+                  <NavLinkList>
+                    {ele.types.map((type, index) => {
+                      return (
+                        <li onClick={() => dispatch(setSideNavOpen(false))}>
+                          {type.type}
+                        </li>
+                      );
+                    })}
+                  </NavLinkList>
+                </NavDropdownArea>
+              </Navigation.Collapse>
+            </NavCategory>
+          );
+        })}
       </Navigation>
     </NavContainer>
   );
