@@ -1,0 +1,16 @@
+body {
+  height: 100vh;
+  overflow-x: hidden;
+  padding-top: 55px;
+}
+
+/* set the sidebar width */
+.w-sidebar {
+  width: 200px;
+  max-width: 200px;
+}
+
+/* optional */
+.vh-100 {
+  min-height: 100vh;
+}
