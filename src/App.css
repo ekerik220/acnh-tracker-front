@@ -1,16 +1,25 @@
+*,
+*:before,
+*:after {
+  box-sizing: border-box;
+}
+
+html,
 body {
-  height: 100vh;
+  height: 100%;
   overflow-x: hidden;
-  padding-top: 55px;
+  margin: 0;
+  padding: 0;
+}
+
+#root {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
 }
 
 /* set the sidebar width */
 .w-sidebar {
   width: 200px;
   max-width: 200px;
-}
-
-/* optional */
-.vh-100 {
-  min-height: 100vh;
 }

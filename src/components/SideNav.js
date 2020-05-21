@@ -52,8 +52,8 @@ export default function SideNav() {
   ];
 
   return (
-    <NavContainer className="bg-dark" ref={sideNavRef}>
-      <Navigation id="side-nav">
+    <NavContainer className="bg-dark side-nav-container" ref={sideNavRef}>
+      <Navigation>
         {data.map((ele, index) => {
           return (
             <Card key={index} className="bg-dark">
@@ -92,12 +92,12 @@ export default function SideNav() {
 
 // Styles
 const NavContainer = styled.div`
-  height: 100vh;
   display: flex;
-  position: fixed;
   background: white;
   z-index: 1;
   box-shadow: 1px 0 3px rgba(0, 0, 0, 0.3);
+  overflow-y: auto;
+  height: 100%;
 `;
 
 const Navigation = styled(Accordion)`
@@ -135,7 +135,6 @@ const NavLinkList = styled.ul`
 
   & li:hover {
     background-color: rgba(0, 0, 0, 0.07);
-    transition: background-color 0.2s;
   }
 
   & li:active {
