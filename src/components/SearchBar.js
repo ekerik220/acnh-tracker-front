@@ -4,48 +4,43 @@ import styled from "styled-components";
 
 export default function SearchBar() {
   return (
-    <SizeLimiter>
+    <Wrapper>
       <InputGroup>
         <InputGroup.Prepend>
-          <CategorySelect>
+          <CategorySelect as="select" custom>
             <option>Wall-mounted</option>
             <option>...</option>
           </CategorySelect>
         </InputGroup.Prepend>
         <SearchInput placeholder="Search" />
         <InputGroup.Append>
-          <Button variant="primary">
+          <SearchButton variant="primary">
             <i class="fas fa-search"></i>
-          </Button>
+          </SearchButton>
         </InputGroup.Append>
       </InputGroup>
-    </SizeLimiter>
+    </Wrapper>
   );
 }
 
-const SizeLimiter = styled.div`
+const Wrapper = styled.div`
   width: 100%;
-  max-width: 600px;
+  max-width: 500px;
+  display: flex;
 `;
 
-const CategorySelect = styled(Form.Control).attrs((props) => ({
-  as: "select",
-  custom: "true",
-}))`
+const CategorySelect = styled(Form.Control)`
   @media (max-width: 768px) {
     font-size: 12px;
-    width: 40px;
   }
 `;
 
 const SearchInput = styled(FormControl)`
   @media (max-width: 768px) {
+    font-size: 12px;
   }
 `;
 
-const OpenSearchIcon = styled.i.attrs((props) => ({
-  className: "fas fa-search",
-}))`
-  font-size: 20px;
-  margin: 9px 0;
+const SearchButton = styled(Button)`
+  font-size: 12px;
 `;
