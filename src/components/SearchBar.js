@@ -27,24 +27,28 @@ const CategorySelect = styled.select`
   padding: 5px;
   background: white;
 
-  @media (max-width: 768px) {
-    font-size: 12px;
+  @media (max-width: 430px) {
     width: 70px;
+  }
+
+  @media (max-width: 500px) {
+    font-size: 12px;
   }
 `;
 
 const SearchInput = styled.input`
   border: 1px solid #edeff1;
   padding-left: 8px;
+  width: 100%;
 
-  @media (max-width: 768px) {
+  @media (max-width: 500px) {
     font-size: 12px;
-    width: 100px;
+    width: 50%;
   }
 `;
 
 const SearchButton = styled(Button)`
-  @media (max-width: 768px) {
+  @media (max-width: 500px) {
     font-size: 12px;
   }
 `;

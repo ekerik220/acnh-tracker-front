@@ -18,10 +18,10 @@ export default function SideMenuToggle() {
 }
 
 const ToggleButton = styled.a`
-  visibility: hidden;
+  display: none;
 
   @media (max-width: 768px) {
-    visibility: visible;
+    display: block;
   }
 
   i {

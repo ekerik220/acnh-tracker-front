@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import "./App.css";
-import { Container, Collapse } from "react-bootstrap";
+import { Container, Collapse, Button } from "react-bootstrap";
 import { Col, Row } from "react-bootstrap";
 import TopNav from "./components/TopNav";
 import SideNav from "./components/SideNav";
@@ -9,14 +9,12 @@ import { useSelector, useDispatch } from "react-redux";
 import { setSideNavOpen } from "./redux/actions";
 import SideMenuToggle from "./components/SideMenuToggle";
 import SearchBar from "./components/SearchBar";
+import UserButton from "./components/UserButton";
+import Logo from "./components/Logo";
 
 export default function App() {
   const dispatch = useDispatch();
   const sideNavOpen = useSelector((state) => state.sideNavOpen);
-
-  useEffect(() => {
-    if (window.innerWidth <= 768) dispatch(setSideNavOpen(false));
-  }, []);
 
   useEffect(() => {
     let lastWindowSize = window.innerWidth;
@@ -42,14 +40,18 @@ export default function App() {
   return (
     <React.Fragment>
       <TopArea fluid className="bg-dark py-3">
-        <Row>
-          <Col xs={1} className="px-3 px-md-0 d-flex align-items-center">
+        <Logo />
+        <Row className="flex-nowrap">
+          <Col
+            xs={1}
+            className="px-3 px-md-0 d-flex align-items-center justify-content-center"
+          >
             <SideMenuToggle />
           </Col>
           <Col className="d-flex justify-content-end">
             <SearchBar />
+            <UserButton />
           </Col>
-          <Col xs={1} className="px-3 px-md-0 d-flex align-items-center"></Col>
         </Row>
       </TopArea>
       <BottomArea fluid onClick={clickedOutsideSideMenu}>
