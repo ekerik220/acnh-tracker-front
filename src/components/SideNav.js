@@ -117,7 +117,7 @@ const Category = styled(Card.Header)`
 `;
 
 const NavDropdownArea = styled(Card.Body)`
-  background: rgba(255, 255, 255, 0.9);
+  background: white;
   padding: 0;
 `;
 

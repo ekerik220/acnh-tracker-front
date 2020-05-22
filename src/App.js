@@ -24,8 +24,7 @@ export default function App() {
     const handleResize = () => {
       // Hide the side nav and search bar if we cross over boundary to small screen size,
       // but don't hide it if we're just resizing within small screen size range.
-      if (window.innerWidth <= 768 && lastWindowSize > 768)
-        dispatch(setSideNavOpen(false));
+      if (lastWindowSize > 768) dispatch(setSideNavOpen(false));
 
       lastWindowSize = window.innerWidth;
     };
@@ -35,6 +34,10 @@ export default function App() {
       window.removeEventListener("resize", handleResize);
     };
   });
+
+  const clickedOutsideSideMenu = (action) => {
+    if (action.target.id === "side-nav-col") dispatch(setSideNavOpen(false));
+  };
 
   return (
     <React.Fragment>
@@ -49,18 +52,20 @@ export default function App() {
           <Col xs={1} className="px-3 px-md-0 d-flex align-items-center"></Col>
         </Row>
       </TopArea>
-      <BottomArea fluid>
+      <BottomArea fluid onClick={clickedOutsideSideMenu}>
+        {sideNavOpen && <FadedOverlay />}
         <CollapseStyle in={sideNavOpen}>
           <Row className="collapse show no-gutters d-flex h-100 position-relative">
             <CollapseStyle in={sideNavOpen}>
               <Col
                 xs={3}
                 className="p-0 h-100 w-sidebar navbar-collapse d-none d-md-flex align-items-center sidebar"
+                id="side-nav-col"
               >
                 <SideNav />
               </Col>
             </CollapseStyle>
-            <Col className="p-3" style={{ overflowY: "auto", height: "100%" }}>
+            <ContentArea className="p-3">
               <div className="test">
                 <h3>Content..</h3>
                 <p className="lead">
@@ -84,7 +89,7 @@ export default function App() {
                   you probably haven't heard of them, vegan farm-to-table!
                 </p>
               </div>
-            </Col>
+            </ContentArea>
           </Row>
         </CollapseStyle>
       </BottomArea>
@@ -145,4 +150,18 @@ const BottomArea = styled(Container)`
   padding-left: 0;
   padding-right: 0;
   height: calc(100% - 70px);
+  position: relative;
+`;
+
+const ContentArea = styled(Col)`
+  overflow-y: auto;
+  height: 100%;
+`;
+
+const FadedOverlay = styled.div`
+  background-color: black;
+  opacity: 0.2;
+  position: absolute;
+  height: 100%;
+  width: 100%;
 `;
