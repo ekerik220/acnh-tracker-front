@@ -11,6 +11,8 @@ import SideMenuToggle from "./components/SideMenuToggle";
 import SearchBar from "./components/SearchBar";
 import UserButton from "./components/UserButton";
 import Logo from "./components/Logo";
+import ItemCard from "./components/ItemCard";
+import ItemBox from "./components/ItemBox";
 
 export default function App() {
   const dispatch = useDispatch();
@@ -68,29 +70,7 @@ export default function App() {
               </Col>
             </CollapseStyle>
             <ContentArea className="p-3">
-              <div className="test">
-                <h3>Content..</h3>
-                <p className="lead">
-                  Try this is full-page view to see the animation on larger
-                  screens!
-                </p>
-                <p>
-                  Sriracha biodiesel taxidermy organic post-ironic,
-                  Intelligentsia salvia mustache 90's code editing brunch.
-                  Butcher polaroid VHS art party, hashtag Brooklyn deep v PBR
-                  narwhal sustainable mixtape swag wolf squid tote bag. Tote bag
-                  cronut semiotics, raw denim deep v taxidermy messenger bag.
-                  Tofu YOLO Etsy, direct trade ethical Odd Future jean shorts
-                  paleo. Forage Shoreditch tousled aesthetic irony, street art
-                  organic Bushwick artisan cliche semiotics ugh synth chillwave
-                  meditation. Shabby chic lomo plaid vinyl chambray Vice. Vice
-                  sustainable cardigan, Williamsburg master cleanse hella DIY
-                  90's blog. Ethical Kickstarter PBR asymmetrical lo-fi.
-                  Dreamcatcher street art Carles, stumptown gluten-free
-                  Kickstarter artisan Wes Anderson wolf pug. Godard sustainable
-                  you probably haven't heard of them, vegan farm-to-table!
-                </p>
-              </div>
+              <ItemBox />
             </ContentArea>
           </Row>
         </CollapseStyle>
@@ -162,8 +142,9 @@ const ContentArea = styled(Col)`
 
 const FadedOverlay = styled.div`
   background-color: black;
-  opacity: 0.2;
+  opacity: 0.3;
   position: absolute;
   height: 100%;
   width: 100%;
+  z-index: 1;
 `;
