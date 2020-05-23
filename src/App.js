@@ -1,8 +1,6 @@
 import React, { useEffect } from "react";
 import "./App.css";
-import { Container, Collapse, Button } from "react-bootstrap";
-import { Col, Row } from "react-bootstrap";
-import TopNav from "./components/TopNav";
+import { Col, Row, Container, Collapse } from "react-bootstrap";
 import SideNav from "./components/SideNav";
 import styled from "styled-components";
 import { useSelector, useDispatch } from "react-redux";
@@ -11,7 +9,6 @@ import SideMenuToggle from "./components/SideMenuToggle";
 import SearchBar from "./components/SearchBar";
 import UserButton from "./components/UserButton";
 import Logo from "./components/Logo";
-import ItemCard from "./components/ItemCard";
 import ItemBox from "./components/ItemBox";
 
 export default function App() {

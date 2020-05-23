@@ -8,7 +8,7 @@ export default function SearchBar() {
       <SearchInput placeholder="Search" />
       <InputGroup.Append>
         <SearchButton variant="primary">
-          <i class="fas fa-search"></i>
+          <i className="fas fa-search"></i>
         </SearchButton>
       </InputGroup.Append>
     </Wrapper>

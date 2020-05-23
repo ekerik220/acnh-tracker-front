@@ -1,12 +1,12 @@
 import React from "react";
-import { Button, Dropdown } from "react-bootstrap";
+import { Dropdown } from "react-bootstrap";
 import styled from "styled-components";
 
 export default function UserButton() {
   return (
     <Dropdown>
       <DropdownToggle variant="secondary" className="ml-3">
-        <i class="fas fa-user"></i>
+        <i className="fas fa-user"></i>
       </DropdownToggle>
 
       <Dropdown.Menu>
