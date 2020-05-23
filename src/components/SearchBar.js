@@ -5,12 +5,6 @@ import styled from "styled-components";
 export default function SearchBar() {
   return (
     <Wrapper>
-      <InputGroup.Prepend>
-        <CategorySelect>
-          <option>Wall-mounted</option>
-          <option>...</option>
-        </CategorySelect>
-      </InputGroup.Prepend>
       <SearchInput placeholder="Search" />
       <InputGroup.Append>
         <SearchButton variant="primary">
@@ -21,29 +15,16 @@ export default function SearchBar() {
   );
 }
 
-const CategorySelect = styled.select`
-  border: 1px solid #edeff1;
-  border-radius: 3px;
-  padding: 5px;
-  background: white;
-
-  @media (max-width: 430px) {
-    width: 70px;
-  }
-
-  @media (max-width: 500px) {
-    font-size: 12px;
-  }
-`;
-
 const SearchInput = styled.input`
   border: 1px solid #edeff1;
+  border-top-left-radius: 4px;
+  border-bottom-left-radius: 4px;
   padding-left: 8px;
   width: 100%;
 
   @media (max-width: 500px) {
     font-size: 12px;
-    width: 50%;
+    width: 100%;
   }
 `;
 
