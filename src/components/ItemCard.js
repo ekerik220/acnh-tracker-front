@@ -1,49 +1,23 @@
 import React, { useRef, useState, useEffect } from "react";
 import styled from "styled-components";
 
-// TODO: Replace this with real data!!!
-const variants = [
-  {
-    name: "natural",
-    img: "https://acnhcdn.com/latest/FtrIcon/RoomTexWallEgypt00.png",
-  },
-  {
-    name: "wooden",
-    img: "https://acnhcdn.com/latest/FtrIcon/FtrCardboard_Remake_3_0.png",
-  },
-  {
-    name: "natural",
-    img: "https://acnhcdn.com/latest/FtrIcon/FtrCardboard_Remake_4_0.png",
-  },
-  {
-    name: "wooden",
-    img: "https://acnhcdn.com/latest/FtrIcon/RoomTexWallEgypt00.png",
-  },
-  {
-    name: "natural",
-    img: "https://acnhcdn.com/latest/FtrIcon/RoomTexWallEgypt00.png",
-  },
-  {
-    name: "wooden",
-    img: "https://acnhcdn.com/latest/FtrIcon/RoomTexWallEgypt00.png",
-  },
-  {
-    name: "natural",
-    img: "https://acnhcdn.com/latest/FtrIcon/RoomTexWallEgypt00.png",
-  },
-  {
-    name: "wooden",
-    img: "https://acnhcdn.com/latest/FtrIcon/RoomTexWallEgypt00.png",
-  },
-];
+String.prototype.capitalize = function () {
+  return this.charAt(0).toUpperCase() + this.slice(1);
+};
 
-export default function ItemCard() {
+export default function ItemCard(props) {
   const variationsArea = useRef();
+  const variationLeftArrow = useRef();
+  const variationRightArrow = useRef();
   const variationsAreaLeftArrow = useRef();
   const variationsAreaRightArrow = useRef();
 
   const [variationAreaTransform, setVariationAreaTransform] = useState(0);
   const [selectedVariationIndex, setSelectedVariationIndex] = useState(0);
+
+  const itemData = props.item;
+  const variants = itemData.variations;
+  const img_url_prefix = "https://acnhcdn.com/latest/FtrIcon/";
 
   const nextVariation = () => {
     if (selectedVariationIndex < variants.length - 1)
@@ -68,17 +42,6 @@ export default function ItemCard() {
       setVariationAreaTransform(variationAreaTransform - 32);
   };
 
-  // Run once to determine if we should show variant scroll arrows.
-  useEffect(() => {
-    const visibleWidth = variationsArea.current.offsetWidth;
-    const fullWidth = variationsArea.current.scrollWidth;
-
-    if (visibleWidth === fullWidth) {
-      variationsAreaLeftArrow.current.hidden = true;
-      variationsAreaRightArrow.current.hidden = true;
-    } else variationsAreaRightArrow.current.classList.add("enabled");
-  }, []);
-
   // Handle variant list scroll changes.
   useEffect(() => {
     variationsArea.current.style.transform =
@@ -100,6 +63,8 @@ export default function ItemCard() {
     const variations = Array.from(variationsArea.current.children);
     const selectedVariation = variations[selectedVariationIndex];
 
+    if (!selectedVariation) return;
+
     // Put selected class only on selected variant
     variations.forEach((variation) => variation.classList.remove("selected"));
     selectedVariation.classList.add("selected");
@@ -112,41 +77,71 @@ export default function ItemCard() {
       (selectedVariationIndex + 1) * selectedVariation.offsetWidth;
     if (selectedVariationEnd < visibleAreaStart) slideVariationsLeft();
     if (selectedVariationEnd > visbileAreaEnd) slideVariationsRight();
+
+    // Update enabled state of big select arrows
+    if (selectedVariationIndex === 0)
+      variationLeftArrow.current.classList.remove("enabled");
+    else variationLeftArrow.current.classList.add("enabled");
+    if (selectedVariationIndex < variants.length - 1)
+      variationRightArrow.current.classList.add("enabled");
+    else variationRightArrow.current.classList.remove("enabled");
   }, [selectedVariationIndex]);
 
   return (
     <OuterBox>
       <TagBox></TagBox>
       <PictureBox>
-        <i className="fas fa-arrow-circle-left" onClick={prevVariation}></i>
-        <img src={variants[selectedVariationIndex].img} />
-        <i className="fas fa-arrow-circle-right" onClick={nextVariation}></i>
+        <i
+          className="fas fa-arrow-circle-left"
+          onClick={prevVariation}
+          ref={variationLeftArrow}
+          hidden={variants.length > 1 ? false : true}
+        ></i>
+        <img
+          src={img_url_prefix + variants[selectedVariationIndex].img + ".png"}
+          alt=""
+        />
+        <i
+          className="fas fa-arrow-circle-right"
+          onClick={nextVariation}
+          ref={variationRightArrow}
+          hidden={variants.length > 1 ? false : true}
+        ></i>
       </PictureBox>
       <NameBox>
-        <h6>Abstract wall</h6>
-        <span>({variants[selectedVariationIndex].name})</span>
+        <h6>{itemData.name.capitalize()}</h6>
+        <span>
+          {variants.length > 1
+            ? "(" + variants[selectedVariationIndex].name + ")"
+            : null}
+        </span>
       </NameBox>
       <VariantBox>
         <i
           ref={variationsAreaLeftArrow}
           className="fas fa-chevron-left"
           onClick={slideVariationsLeft}
+          hidden={variants.length > 7 ? false : true}
         ></i>
         <div>
           <div ref={variationsArea}>
-            {variants.map((variant, index) => (
-              <img
-                key={index}
-                src={variant.img}
-                onClick={() => setSelectedVariationIndex(index)}
-              />
-            ))}
+            {variants.length > 1
+              ? variants.map((variant, index) => (
+                  <img
+                    key={index}
+                    src={img_url_prefix + variant.img + ".png"}
+                    onClick={() => setSelectedVariationIndex(index)}
+                    alt=""
+                  />
+                ))
+              : null}
           </div>
         </div>
         <i
           ref={variationsAreaRightArrow}
           className="fas fa-chevron-right"
           onClick={slideVariationsRight}
+          hidden={variants.length > 7 ? false : true}
         ></i>
       </VariantBox>
       <WantHaveBox>
@@ -182,13 +177,17 @@ const PictureBox = styled.div`
 
   i {
     font-size: 40px;
-    opacity: 0.2;
-    transition: opacity 0.3s;
+    color: grey;
+  }
+
+  i.enabled {
+    color: black;
     cursor: pointer;
   }
 
-  i:hover {
-    opacity: 0.8;
+  i.enabled:hover {
+    font-size: 45px;
+    transition: font-size 0.2s;
   }
 `;
 

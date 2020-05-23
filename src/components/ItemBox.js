@@ -1,18 +1,16 @@
 import React from "react";
 import ItemCard from "./ItemCard";
 import styled from "styled-components";
+import { useSelector } from "react-redux";
 
 export default function ItemBox() {
+  const itemData = useSelector((state) => state.itemData);
+
   return (
     <Wrapper>
-      <ItemCard />
-      <ItemCard />
-      <ItemCard />
-      <ItemCard />
-      <ItemCard />
-      <ItemCard />
-      <ItemCard />
-      <ItemCard />
+      {itemData.map((item, index) => (
+        <ItemCard key={index} item={item} />
+      ))}
     </Wrapper>
   );
 }

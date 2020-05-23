@@ -1,13 +1,49 @@
-import React, { useRef, useState } from "react";
+import React, { useRef, useState, useEffect } from "react";
 import styled from "styled-components";
-import { Accordion, Card, Collapse, Col } from "react-bootstrap";
-import { setSideNavOpen } from "../redux/actions";
+import { Accordion, Card } from "react-bootstrap";
+import { setSideNavOpen, setItemData } from "../redux/actions";
 import { useDispatch } from "react-redux";
 
 export default function SideNav() {
   const dispatch = useDispatch();
   const sideNavRef = useRef();
   const [activeCategory, setActiveCategory] = useState();
+  const [selectedItemType, setSelectedItemType] = useState();
+
+  const data = [
+    {
+      category: "Furniture",
+      types: [
+        { type: "Housewares", dataType: "housewares" },
+        { type: "Misc.", dataType: "misc" },
+        { type: "Wall-mounted", dataType: "wallmounted" },
+      ],
+    },
+    {
+      category: "Clothing",
+      types: [
+        { type: "Tops", dataType: "tops" },
+        { type: "Bottoms", dataType: "bottoms" },
+        { type: "Dress-up", dataType: "dressup" },
+        { type: "Headwear", dataType: "headwear" },
+        { type: "Accessories", dataType: "accessories" },
+        { type: "Socks", dataType: "socks" },
+        { type: "Shoes", dataType: "shoes" },
+        { type: "Bags", dataType: "bags" },
+        { type: "Umbrellas", dataType: "umbrellas" },
+      ],
+    },
+    {
+      category: "Other",
+      types: [
+        { type: "Wallpaper", dataType: "wallpaper" },
+        { type: "Flooring", dataType: "flooring" },
+        { type: "Rugs", dataType: "rugs" },
+        { type: "Fossils", dataType: "fossils" },
+        { type: "Music", dataType: "music" },
+      ],
+    },
+  ];
 
   const handleCategoryClick = (index) => {
     // If the clicked category was already the active category, we're now
@@ -16,40 +52,22 @@ export default function SideNav() {
     else setActiveCategory(index);
   };
 
-  const data = [
-    {
-      category: "Furniture",
-      types: [
-        { type: "Housewares", link: "url" },
-        { type: "Misc.", link: "url" },
-        { type: "Wall-mounted", link: "url" },
-      ],
-    },
-    {
-      category: "Clothing",
-      types: [
-        { type: "Tops", link: "url" },
-        { type: "Bottoms", link: "url" },
-        { type: "Dress-up", link: "url" },
-        { type: "Headwear", link: "url" },
-        { type: "Accessories", link: "url" },
-        { type: "Socks", link: "url" },
-        { type: "Shoes", link: "url" },
-        { type: "Bags", link: "url" },
-        { type: "Umbrellas", link: "url" },
-      ],
-    },
-    {
-      category: "Other",
-      types: [
-        { type: "Wallpaper", link: "url" },
-        { type: "Flooring", link: "url" },
-        { type: "Rugs", link: "url" },
-        { type: "Fossils", link: "url" },
-        { type: "Music", link: "url" },
-      ],
-    },
-  ];
+  const handleSelection = (dataType) => {
+    dispatch(setSideNavOpen(false));
+    setSelectedItemType(dataType);
+    dispatch(setItemData([]));
+  };
+
+  useEffect(() => {
+    async function fetchMyAPI() {
+      const endpoint = "http://localhost:4000/data/" + selectedItemType;
+      const response = await fetch(endpoint);
+      const data = await response.json();
+      dispatch(setItemData(data));
+    }
+
+    fetchMyAPI();
+  }, [selectedItemType]);
 
   return (
     <NavContainer className="bg-dark side-nav-container" ref={sideNavRef}>
@@ -64,17 +82,20 @@ export default function SideNav() {
               >
                 {ele.category}
                 {activeCategory === index ? (
-                  <i class="fas fa-chevron-down"></i>
+                  <i className="fas fa-chevron-down"></i>
                 ) : (
-                  <i class="fas fa-chevron-right"></i>
+                  <i className="fas fa-chevron-right"></i>
                 )}
               </Navigation.Toggle>
               <Navigation.Collapse eventKey={index}>
                 <NavDropdownArea>
                   <NavLinkList>
-                    {ele.types.map((type, index) => {
+                    {ele.types.map((type) => {
                       return (
-                        <li onClick={() => dispatch(setSideNavOpen(false))}>
+                        <li
+                          key={type.dataType}
+                          onClick={() => handleSelection(type.dataType)}
+                        >
                           {type.type}
                         </li>
                       );
