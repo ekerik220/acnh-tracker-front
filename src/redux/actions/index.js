@@ -4,3 +4,10 @@ export const setSideNavOpen = (state) => {
     payload: state,
   };
 };
+
+export const setItemData = (state) => {
+  return {
+    type: "SET_ITEM_DATA",
+    payload: state,
+  };
+};
