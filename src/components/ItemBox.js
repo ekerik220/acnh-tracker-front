@@ -93,6 +93,17 @@ const TopArea = styled.div`
   h3 {
     margin-right: 10px;
   }
+
+  @media (max-width: 460px) {
+    h3 {
+      font-size: 20px;
+      margin-right: 0;
+    }
+
+    div {
+      flex-direction: column;
+    }
+  }
 `;
 
 const ItemCardArea = styled.div`
