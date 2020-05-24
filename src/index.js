@@ -6,10 +6,15 @@ import allReducers from "./redux/reducers";
 import { createStore } from "redux";
 import { Provider } from "react-redux";
 
-const store = createStore(
-  allReducers,
-  window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
-);
+import { composeWithDevTools } from "redux-devtools-extension";
+import * as actionCreators from "./redux/actions/index";
+
+const composeEnhancers = composeWithDevTools({
+  trace: true,
+  traceLimit: 25,
+});
+
+const store = createStore(allReducers, composeEnhancers());
 
 ReactDOM.render(
   <Provider store={store}>

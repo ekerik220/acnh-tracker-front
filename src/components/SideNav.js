@@ -67,6 +67,8 @@ const SideNav = (props) => {
   };
 
   useEffect(() => {
+    if (!selectedItemType) return;
+
     async function fetchMyAPI() {
       try {
         dispatch(setLoading(true));

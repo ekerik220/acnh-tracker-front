@@ -12,6 +12,7 @@ import Logo from "./components/Logo";
 import ItemBox from "./components/ItemBox";
 import HomeScreen from "./components/HomeScreen";
 import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
+import NoResults from "./components/NoResults";
 
 export default function App() {
   const dispatch = useDispatch();
@@ -75,6 +76,9 @@ export default function App() {
                 </Route>
                 <Route path="/items">
                   <ItemBox />
+                </Route>
+                <Route path="/noresults">
+                  <NoResults />
                 </Route>
               </Switch>
             </ContentArea>

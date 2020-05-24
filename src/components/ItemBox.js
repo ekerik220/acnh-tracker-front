@@ -47,7 +47,9 @@ export default function ItemBox({}) {
       {loadedData.length > 0 && (
         <TopArea>
           <div>
-            <h3 id="title">{formatTitle(selectedItemType)}</h3>
+            <h3 id="title">
+              {selectedItemType ? formatTitle(selectedItemType) : "Search"}
+            </h3>
             <span>({itemData.length} total)</span>
           </div>
           <Pagination
