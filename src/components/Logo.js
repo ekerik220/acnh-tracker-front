@@ -1,10 +1,19 @@
 import React from "react";
 import styled from "styled-components";
 import { Image } from "react-bootstrap";
+import { setItemData, setSelectedItemType } from "../redux/actions";
+import { useDispatch } from "react-redux";
 
 export default function Logo() {
+  const dispatch = useDispatch();
+
+  const handleClick = () => {
+    dispatch(setItemData([]));
+    dispatch(setSelectedItemType(null));
+  };
+
   return (
-    <ImageBox>
+    <ImageBox onClick={handleClick}>
       <Image src={require("../assets/logo.png")} fluid></Image>
     </ImageBox>
   );
@@ -15,6 +24,8 @@ const ImageBox = styled.div`
   top: 7px;
   left: 39px;
   width: 100px;
+  cursor: pointer;
+  z-index: 1;
 
   @media (max-width: 768px) {
     display: none;
