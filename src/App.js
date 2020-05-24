@@ -66,7 +66,7 @@ export default function App() {
                 <SideNav />
               </Col>
             </CollapseStyle>
-            <ContentArea className="p-3">
+            <ContentArea className="p-3" id="content-area">
               <ItemBox />
             </ContentArea>
           </Row>
