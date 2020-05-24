@@ -11,3 +11,17 @@ export const setItemData = (state) => {
     payload: state,
   };
 };
+
+export const setSelectedItemType = (state) => {
+  return {
+    type: "SET_SELECTED_ITEM_TYPE",
+    payload: state,
+  };
+};
+
+export const setLoading = (state) => {
+  return {
+    type: "SET_LOADING",
+    payload: state,
+  };
+};

@@ -1,14 +1,20 @@
 import React, { useRef, useState, useEffect } from "react";
 import styled from "styled-components";
 import { Accordion, Card } from "react-bootstrap";
-import { setSideNavOpen, setItemData } from "../redux/actions";
-import { useDispatch } from "react-redux";
+import {
+  setSideNavOpen,
+  setItemData,
+  setSelectedItemType,
+  setLoading,
+} from "../redux/actions";
+import { useDispatch, useSelector } from "react-redux";
 
 export default function SideNav() {
   const dispatch = useDispatch();
   const sideNavRef = useRef();
+  const linkList = useRef();
   const [activeCategory, setActiveCategory] = useState();
-  const [selectedItemType, setSelectedItemType] = useState();
+  const selectedItemType = useSelector((state) => state.selectedItemType);
 
   const data = [
     {
@@ -54,16 +60,22 @@ export default function SideNav() {
 
   const handleSelection = (dataType) => {
     dispatch(setSideNavOpen(false));
-    setSelectedItemType(dataType);
+    dispatch(setSelectedItemType(dataType));
     dispatch(setItemData([]));
   };
 
   useEffect(() => {
     async function fetchMyAPI() {
-      const endpoint = "http://localhost:4000/data/" + selectedItemType;
-      const response = await fetch(endpoint);
-      const data = await response.json();
-      dispatch(setItemData(data));
+      try {
+        dispatch(setLoading(true));
+        const endpoint = "http://localhost:4000/data/" + selectedItemType;
+        const response = await fetch(endpoint);
+        const data = await response.json();
+        dispatch(setItemData(data));
+      } catch (err) {
+        console.log(err);
+      }
+      dispatch(setLoading(false));
     }
 
     fetchMyAPI();
@@ -89,12 +101,15 @@ export default function SideNav() {
               </Navigation.Toggle>
               <Navigation.Collapse eventKey={index}>
                 <NavDropdownArea>
-                  <NavLinkList>
+                  <NavLinkList ref={linkList}>
                     {ele.types.map((type) => {
                       return (
                         <li
                           key={type.dataType}
                           onClick={() => handleSelection(type.dataType)}
+                          className={
+                            type.dataType === selectedItemType ? "selected" : ""
+                          }
                         >
                           {type.type}
                         </li>
@@ -161,5 +176,10 @@ const NavLinkList = styled.ul`
   & li:active {
     background-color: rgba(0, 0, 0, 0.3);
     transition: background-color 0.2s;
+  }
+
+  & li.selected {
+    background-color: rgba(0, 0, 0, 0.3);
+    pointer-events: none;
   }
 `;

@@ -5,23 +5,16 @@ import { useSelector } from "react-redux";
 import Pagination from "rc-pagination";
 import "../rc-pagination.css";
 import localeInfo from "../locale/en_US";
-import {
-  Link,
-  Element,
-  Events,
-  animateScroll as scroll,
-  scrollSpy,
-  scroller,
-} from "react-scroll";
+import { animateScroll as scroll } from "react-scroll";
 
 const ITEMS_PER_PAGE = 24;
 
 export default function ItemBox({}) {
   const itemData = useSelector((state) => state.itemData);
+  const selectedItemType = useSelector((state) => state.selectedItemType);
+  const loading = useSelector((state) => state.loading);
   const [loadedData, setLoadedData] = useState([]);
   const [page, setPage] = useState(1);
-
-  useEffect(() => {}, []);
 
   useEffect(() => {
     const firstPage = itemData.slice(0, ITEMS_PER_PAGE);
@@ -41,12 +34,20 @@ export default function ItemBox({}) {
     setPage(current);
   };
 
+  const formatTitle = (title) => {
+    if (!title) return;
+    if (title === "wallmounted") return "Wall-mounted";
+    if (title === "dressup") return "Dress-up";
+    if (title === "misc") return "Misc.";
+    return title.charAt(0).toUpperCase() + title.slice(1);
+  };
+
   return (
     <React.Fragment>
       {loadedData.length > 0 && (
         <TopArea>
           <div>
-            <h3 id="title">Housewares</h3>
+            <h3 id="title">{formatTitle(selectedItemType)}</h3>
             <span>({itemData.length} total)</span>
           </div>
           <Pagination
@@ -60,6 +61,11 @@ export default function ItemBox({}) {
         </TopArea>
       )}
       <ItemCardArea>
+        {loading && (
+          <div className="loading-spinner">
+            <i className="fas fa-cog fa-spin"></i>
+          </div>
+        )}
         {loadedData.map((item, index) => (
           <ItemCard key={index} item={item} />
         ))}
@@ -111,6 +117,16 @@ const ItemCardArea = styled.div`
   grid-template-columns: repeat(auto-fill, 270px);
   grid-gap: 1rem;
   justify-content: center;
+
+  .loading-spinner {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+  }
+  .loading-spinner > i {
+    font-size: 10vw;
+  }
 `;
 
 const BottomArea = styled.div`
