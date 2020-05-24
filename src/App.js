@@ -10,6 +10,8 @@ import SearchBar from "./components/SearchBar";
 import UserButton from "./components/UserButton";
 import Logo from "./components/Logo";
 import ItemBox from "./components/ItemBox";
+import HomeScreen from "./components/HomeScreen";
+import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
 
 export default function App() {
   const dispatch = useDispatch();
@@ -37,7 +39,7 @@ export default function App() {
   };
 
   return (
-    <React.Fragment>
+    <Router>
       <TopArea fluid className="bg-dark py-3">
         <Logo />
         <Row className="flex-nowrap">
@@ -67,12 +69,19 @@ export default function App() {
               </Col>
             </CollapseStyle>
             <ContentArea className="p-3" id="content-area">
-              <ItemBox />
+              <Switch>
+                <Route exact path="/">
+                  <HomeScreen />
+                </Route>
+                <Route path="/items">
+                  <ItemBox />
+                </Route>
+              </Switch>
             </ContentArea>
           </Row>
         </CollapseStyle>
       </BottomArea>
-    </React.Fragment>
+    </Router>
   );
 }
 

@@ -8,8 +8,9 @@ import {
   setLoading,
 } from "../redux/actions";
 import { useDispatch, useSelector } from "react-redux";
+import { withRouter } from "react-router-dom";
 
-export default function SideNav() {
+const SideNav = (props) => {
   const dispatch = useDispatch();
   const sideNavRef = useRef();
   const linkList = useRef();
@@ -59,6 +60,7 @@ export default function SideNav() {
   };
 
   const handleSelection = (dataType) => {
+    props.history.push("/items");
     dispatch(setSideNavOpen(false));
     dispatch(setSelectedItemType(dataType));
     dispatch(setItemData([]));
@@ -124,7 +126,7 @@ export default function SideNav() {
       </Navigation>
     </NavContainer>
   );
-}
+};
 
 // Styles
 const NavContainer = styled.div`
@@ -183,3 +185,5 @@ const NavLinkList = styled.ul`
     pointer-events: none;
   }
 `;
+
+export default withRouter(SideNav);
