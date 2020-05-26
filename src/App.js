@@ -13,6 +13,7 @@ import ItemBox from "./components/ItemBox";
 import HomeScreen from "./components/HomeScreen";
 import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
 import NoResults from "./components/NoResults";
+import UserRegister from "./components/UserRegister";
 
 export default function App() {
   const dispatch = useDispatch();
@@ -79,6 +80,9 @@ export default function App() {
                 </Route>
                 <Route path="/noresults">
                   <NoResults />
+                </Route>
+                <Route exact path="/register">
+                  <UserRegister />
                 </Route>
               </Switch>
             </ContentArea>
