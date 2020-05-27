@@ -14,6 +14,8 @@ import HomeScreen from "./components/HomeScreen";
 import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
 import NoResults from "./components/NoResults";
 import UserRegister from "./components/UserRegister";
+import Login from "./components/Login";
+import ConfirmEmail from "./components/ConfirmEmail";
 
 export default function App() {
   const dispatch = useDispatch();
@@ -81,9 +83,13 @@ export default function App() {
                 <Route path="/noresults">
                   <NoResults />
                 </Route>
-                <Route exact path="/register">
+                <Route path="/register">
                   <UserRegister />
                 </Route>
+                <Route path="/login">
+                  <Login />
+                </Route>
+                <Route path="/confirm/:userKey" children={<ConfirmEmail />} />
               </Switch>
             </ContentArea>
           </Row>
