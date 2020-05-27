@@ -9,6 +9,7 @@ export default function UserRegister() {
   const [finished, setFinished] = useState(false);
   const [errorVisible, setErrorVisible] = useState(false);
   const [successVisible, setSuccessVisible] = useState(false);
+  const [loading, setLoading] = useState(false);
   const errorText = useRef();
   const successText = useRef();
 
@@ -28,9 +29,10 @@ export default function UserRegister() {
     };
 
     try {
+      setLoading(true);
       const req = await fetch(endpoint, options);
       const res = await req.json();
-      console.log(res);
+      setLoading(false);
       if (res.error) {
         errorText.current.innerHTML = res.error;
         setErrorVisible(true);
@@ -92,7 +94,7 @@ export default function UserRegister() {
         </Alert>
         <h3>Register new user</h3>
         <div>
-          <Form onSubmit={submit}>
+          <Form onSubmit={!loading ? submit : null}>
             <Form.Group controlId="formBasicEmail">
               <Form.Label>Email address</Form.Label>
               <Form.Control
@@ -133,8 +135,8 @@ export default function UserRegister() {
                 required
               />
             </Form.Group>
-            <Button variant="primary" type="submit">
-              Submit
+            <Button variant="primary" type="submit" disabled={loading}>
+              {!loading ? "Submit" : <i class="fas fa-spinner fa-spin"></i>}
             </Button>
           </Form>
         </div>
