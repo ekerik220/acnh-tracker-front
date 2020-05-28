@@ -1,4 +1,4 @@
-const loginTokenReducer = (state = false, action) => {
+const loginTokenReducer = (state = null, action) => {
   switch (action.type) {
     case "SET_LOGIN_TOKEN":
       return action.payload;
