@@ -25,3 +25,10 @@ export const setLoading = (state) => {
     payload: state,
   };
 };
+
+export const setLoginToken = (state) => {
+  return {
+    type: "SET_LOGIN_TOKEN",
+    payload: state,
+  };
+};
