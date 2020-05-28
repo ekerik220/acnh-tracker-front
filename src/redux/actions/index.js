@@ -32,3 +32,10 @@ export const setLoginToken = (state) => {
     payload: state,
   };
 };
+
+export const setUserName = (state) => {
+  return {
+    type: "SET_USER_NAME",
+    payload: state,
+  };
+};
