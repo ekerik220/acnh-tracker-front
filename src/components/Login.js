@@ -2,6 +2,8 @@ import React, { useState, useRef } from "react";
 import styled from "styled-components";
 import { Form, Button, Alert } from "react-bootstrap";
 import { withRouter } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { setLoginToken, setUserName } from "../redux/actions";
 
 const Login = (props) => {
   const [email, setEmail] = useState("");
@@ -9,6 +11,7 @@ const Login = (props) => {
   const [errorVisible, setErrorVisible] = useState(false);
   const [loading, setLoading] = useState(false);
   const errorText = useRef();
+  const dispatch = useDispatch();
 
   const submit = async (event) => {
     event.preventDefault();
@@ -33,7 +36,8 @@ const Login = (props) => {
         errorText.current.innerHTML = res.error;
         setErrorVisible(true);
       } else {
-        // TODO: Set redux logged in state and local store state with jwb token...
+        dispatch(setLoginToken(res.token));
+        dispatch(setUserName(res.user));
         props.history.push("/");
       }
     } catch (err) {
