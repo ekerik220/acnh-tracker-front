@@ -178,6 +178,7 @@ const PictureBox = styled.div`
   i {
     font-size: 40px;
     color: grey;
+    transition: font-size 0.2s;
   }
 
   i.enabled {
@@ -187,7 +188,6 @@ const PictureBox = styled.div`
 
   i.enabled:hover {
     font-size: 45px;
-    transition: font-size 0.2s;
   }
 `;
 
@@ -227,6 +227,7 @@ const VariantBox = styled.div`
 
   i {
     color: grey;
+    transition: font-size 0.2s;
   }
 
   i.enabled {
