@@ -1,4 +1,5 @@
 import React, { useRef, useState, useEffect } from "react";
+import { useSelector } from "react-redux";
 import styled from "styled-components";
 import WantButton from "./WantButton";
 import HaveButton from "./HaveButton";
@@ -17,9 +18,21 @@ export default function ItemCard(props) {
   const [variationAreaTransform, setVariationAreaTransform] = useState(0);
   const [selectedVariationIndex, setSelectedVariationIndex] = useState(0);
 
+  const userList = useSelector((state) => state.userList);
+  const userWishlist = useSelector((state) => state.userWishlist);
+
   const itemData = props.item;
   const variants = itemData.variations;
   const img_url_prefix = "https://acnhcdn.com/latest/FtrIcon/";
+
+  const isInList = (list, itemName, variation = null) => {
+    if (variation)
+      return list.some(
+        (item) =>
+          item.item_name === itemName && item.variations.includes(variation)
+      );
+    else return list.some((item) => item.item_name === itemName);
+  };
 
   const nextVariation = () => {
     if (selectedVariationIndex < variants.length - 1)
@@ -151,6 +164,11 @@ export default function ItemCard(props) {
           itemName={itemData.name}
           itemCategory={itemData["item-type"]}
           itemVariation={variants[selectedVariationIndex]}
+          selected={isInList(
+            userWishlist,
+            itemData.name,
+            variants[selectedVariationIndex].name
+          )}
         />
         <HaveButton itemData={itemData} />
       </WantHaveBox>

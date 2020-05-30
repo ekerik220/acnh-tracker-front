@@ -32,7 +32,14 @@ export default function WantButton(props) {
     }
   };
 
-  return <Button onClick={addToWishList}>Want</Button>;
+  return (
+    <Button
+      className={props.selected ? "selected" : null}
+      onClick={addToWishList}
+    >
+      Want
+    </Button>
+  );
 }
 
 const Button = styled.div`
@@ -43,4 +50,8 @@ const Button = styled.div`
   border-radius: 4px;
   margin: 1px;
   width: 100%;
+
+  &.selected {
+    background: #0074d9;
+  }
 `;
