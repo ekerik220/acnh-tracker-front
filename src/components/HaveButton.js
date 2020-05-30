@@ -70,6 +70,7 @@ const Button = styled.div`
   border-radius: 4px;
   margin: 1px;
   width: 100%;
+  transition: all 0.5s;
 
   &.selected {
     background: #2ecc40;
