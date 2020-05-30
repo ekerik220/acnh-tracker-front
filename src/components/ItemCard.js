@@ -1,5 +1,7 @@
 import React, { useRef, useState, useEffect } from "react";
 import styled from "styled-components";
+import WantButton from "./WantButton";
+import HaveButton from "./HaveButton";
 
 String.prototype.capitalize = function () {
   return this.charAt(0).toUpperCase() + this.slice(1);
@@ -145,8 +147,12 @@ export default function ItemCard(props) {
         ></i>
       </VariantBox>
       <WantHaveBox>
-        <div>Want</div>
-        <div>Have</div>
+        <WantButton
+          itemName={itemData.name}
+          itemCategory={itemData["item-type"]}
+          itemVariation={variants[selectedVariationIndex]}
+        />
+        <HaveButton itemData={itemData} />
       </WantHaveBox>
     </OuterBox>
   );
@@ -254,20 +260,4 @@ const NameBox = styled.div`
 const WantHaveBox = styled.div`
   display: flex;
   padding: 0 5px;
-
-  div {
-    text-align: center;
-    cursor: pointer;
-    user-select: none;
-    background: grey;
-    border: none;
-    border-radius: 4px;
-    margin: 1px;
-    width: 100%;
-  }
-
-  div:hover {
-    background: rgba(0, 0, 0, 0.4);
-    transition: background-color 0.2s;
-  }
 `;
