@@ -47,7 +47,12 @@ export default function App() {
   });
 
   useEffect(() => {
-    getUserInfo();
+    if (loginToken) getUserInfo();
+    else {
+      dispatch(setUserName(null));
+      dispatch(setUserList([]));
+      dispatch(setUserWishlist([]));
+    }
   }, [loginToken]);
 
   const clickedOutsideSideMenu = (action) => {

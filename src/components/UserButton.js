@@ -11,7 +11,6 @@ export default function UserButton() {
   const dispatch = useDispatch();
 
   const logout = () => {
-    dispatch(setUserName(null));
     dispatch(setLoginToken(null));
   };
 

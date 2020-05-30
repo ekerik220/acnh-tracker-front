@@ -37,7 +37,6 @@ const Login = (props) => {
         setErrorVisible(true);
       } else {
         dispatch(setLoginToken(res.token));
-        dispatch(setUserName(res.user));
         props.history.push("/");
       }
     } catch (err) {
