@@ -39,3 +39,10 @@ export const setUserName = (state) => {
     payload: state,
   };
 };
+
+export const setErrorText = (state) => {
+  return {
+    type: "SET_ERROR_TEXT",
+    payload: state,
+  };
+};

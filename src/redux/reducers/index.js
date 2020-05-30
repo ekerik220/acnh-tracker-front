@@ -5,6 +5,7 @@ import selectedItemType from "./selectedItemType";
 import loading from "./loading";
 import loginToken from "./loginToken";
 import userName from "./userName";
+import errorText from "./errorText";
 
 const allReducers = combineReducers({
   sideNavOpen,
@@ -13,6 +14,7 @@ const allReducers = combineReducers({
   loading,
   loginToken,
   userName,
+  errorText,
 });
 
 export default allReducers;

@@ -1,10 +1,10 @@
 import React, { useEffect } from "react";
 import "./App.css";
-import { Col, Row, Container, Collapse } from "react-bootstrap";
+import { Col, Row, Container, Collapse, Alert } from "react-bootstrap";
 import SideNav from "./components/SideNav";
 import styled from "styled-components";
 import { useSelector, useDispatch } from "react-redux";
-import { setSideNavOpen } from "./redux/actions";
+import { setSideNavOpen, setErrorText } from "./redux/actions";
 import SideMenuToggle from "./components/SideMenuToggle";
 import SearchBar from "./components/SearchBar";
 import UserButton from "./components/UserButton";
@@ -20,6 +20,7 @@ import ConfirmEmail from "./components/ConfirmEmail";
 export default function App() {
   const dispatch = useDispatch();
   const sideNavOpen = useSelector((state) => state.sideNavOpen);
+  const errorText = useSelector((state) => state.errorText);
 
   useEffect(() => {
     let lastWindowSize = window.innerWidth;
@@ -73,6 +74,14 @@ export default function App() {
               </Col>
             </CollapseStyle>
             <ContentArea className="p-3" id="content-area">
+              <Alert
+                variant="danger"
+                onClose={() => dispatch(setErrorText(null))}
+                dismissible
+                hidden={!errorText}
+              >
+                <p>{errorText}</p>
+              </Alert>
               <Switch>
                 <Route exact path="/">
                   <HomeScreen />
