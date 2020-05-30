@@ -25,6 +25,8 @@ export default function UserButton() {
       {userName && loginToken ? (
         <Dropdown.Menu>
           <Dropdown.Item disabled>{userName}</Dropdown.Item>
+          <Dropdown.Item href="/catalogue">Catalogue</Dropdown.Item>
+          <Dropdown.Item href="/wishlist">Wishlist</Dropdown.Item>
           <Dropdown.Item onSelect={logout}>Logout</Dropdown.Item>
         </Dropdown.Menu>
       ) : (
