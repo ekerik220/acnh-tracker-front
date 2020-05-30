@@ -1,6 +1,11 @@
 import React, { useState } from "react";
 import styled from "styled-components";
-import { setItemData, setErrorText } from "../redux/actions";
+import {
+  setItemData,
+  setErrorText,
+  setUserWishlist,
+  setUserList,
+} from "../redux/actions";
 import { useSelector, useDispatch } from "react-redux";
 
 export default function WantButton(props) {
@@ -9,7 +14,14 @@ export default function WantButton(props) {
   const dispatch = useDispatch();
 
   const addToWishList = async () => {
-    const endpoint = "http://localhost:4000/list/addToWishList";
+    postToEndpoint("http://localhost:4000/list/addToWishList");
+  };
+
+  const removeFromWishList = async () => {
+    postToEndpoint("http://localhost:4000/list/wishDelete");
+  };
+
+  const postToEndpoint = async (endpoint) => {
     const body = {
       item_name: props.itemName,
       category: props.itemCategory,
@@ -23,10 +35,16 @@ export default function WantButton(props) {
     };
 
     try {
+      setLoading(true);
       const req = await fetch(endpoint, options);
       const res = await req.json();
-      console.log(res);
+      setLoading(false);
+
       if (res.error) dispatch(setErrorText(res.error));
+      else {
+        dispatch(setUserWishlist(res.wishList));
+        dispatch(setUserList(res.list));
+      }
     } catch (err) {
       console.log(err);
     }
@@ -34,10 +52,12 @@ export default function WantButton(props) {
 
   return (
     <Button
-      className={props.selected ? "selected" : null}
-      onClick={addToWishList}
+      className={loading ? "loading" : props.selected ? "selected" : null}
+      onClick={
+        loading ? null : props.selected ? removeFromWishList : addToWishList
+      }
     >
-      Want
+      {loading ? <i class="fas fa-spinner fa-spin"></i> : "Want"}
     </Button>
   );
 }
@@ -53,5 +73,10 @@ const Button = styled.div`
 
   &.selected {
     background: #0074d9;
+  }
+
+  &.loading {
+    background: #0074d9;
+    opacity: 0.5;
   }
 `;
