@@ -25,8 +25,8 @@ export default function ItemCard(props) {
   const variants = itemData.variations;
   const img_url_prefix = "https://acnhcdn.com/latest/FtrIcon/";
 
-  const isInList = (list, itemName, variation = null) => {
-    if (variation)
+  const isInList = (list, itemName, variation) => {
+    if (variation !== "NA")
       return list.some(
         (item) =>
           item.item_name === itemName && item.variations.includes(variation)
