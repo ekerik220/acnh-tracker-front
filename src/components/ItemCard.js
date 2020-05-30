@@ -17,6 +17,8 @@ export default function ItemCard(props) {
 
   const [variationAreaTransform, setVariationAreaTransform] = useState(0);
   const [selectedVariationIndex, setSelectedVariationIndex] = useState(0);
+  const [wanted, setWanted] = useState(false);
+  const [owned, setOwned] = useState(false);
 
   const userList = useSelector((state) => state.userList);
   const userWishlist = useSelector((state) => state.userWishlist);
@@ -56,6 +58,17 @@ export default function ItemCard(props) {
     if (visibleWidth - variationAreaTransform < fullWidth)
       setVariationAreaTransform(variationAreaTransform - 32);
   };
+
+  // Change owned/wanted status of this item whenever user list/wishlist updates
+  useEffect(() => {
+    isInList(userList, itemData.name, variants[selectedVariationIndex].name)
+      ? setOwned(true)
+      : setOwned(false);
+
+    isInList(userWishlist, itemData.name, variants[selectedVariationIndex].name)
+      ? setWanted(true)
+      : setWanted(false);
+  }, [userList, userWishlist]);
 
   // Handle variant list scroll changes.
   useEffect(() => {
@@ -104,7 +117,7 @@ export default function ItemCard(props) {
 
   return (
     <OuterBox>
-      <TagBox></TagBox>
+      <TagBox className={owned ? "owned" : wanted ? "wanted" : null}></TagBox>
       <PictureBox>
         <i
           className="fas fa-arrow-circle-left"
@@ -164,13 +177,14 @@ export default function ItemCard(props) {
           itemName={itemData.name}
           itemCategory={itemData["item-type"]}
           itemVariation={variants[selectedVariationIndex]}
-          selected={isInList(
-            userWishlist,
-            itemData.name,
-            variants[selectedVariationIndex].name
-          )}
+          selected={wanted}
         />
-        <HaveButton itemData={itemData} />
+        <HaveButton
+          itemName={itemData.name}
+          itemCategory={itemData["item-type"]}
+          itemVariation={variants[selectedVariationIndex]}
+          selected={owned}
+        />
       </WantHaveBox>
     </OuterBox>
   );
@@ -187,6 +201,15 @@ const OuterBox = styled.div`
 const TagBox = styled.div`
   background: grey;
   height: 25px;
+  transition: background-color 0.5s;
+
+  &.owned {
+    background: #2ecc40;
+  }
+
+  &.wanted {
+    background: #0074d9;
+  }
 `;
 
 const PictureBox = styled.div`
