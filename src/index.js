@@ -9,6 +9,7 @@ import { composeWithDevTools } from "redux-devtools-extension";
 import { persistStore, persistReducer } from "redux-persist";
 import { PersistGate } from "redux-persist/integration/react";
 import storage from "redux-persist/lib/storage";
+import { BrowserRouter as Router } from "react-router-dom";
 
 const persistConfig = {
   key: "root",
@@ -29,7 +30,9 @@ ReactDOM.render(
   <Provider store={store}>
     <PersistGate loading={null} persistor={persistor}>
       <React.StrictMode>
-        <App />
+        <Router>
+          <App />
+        </Router>
       </React.StrictMode>
     </PersistGate>
   </Provider>,

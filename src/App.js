@@ -10,6 +10,7 @@ import {
   setUserList,
   setUserWishlist,
   setUserName,
+  setSelectedItemType,
 } from "./redux/actions";
 import SideMenuToggle from "./components/SideMenuToggle";
 import SearchBar from "./components/SearchBar";
@@ -17,13 +18,14 @@ import UserButton from "./components/UserButton";
 import Logo from "./components/Logo";
 import ItemBox from "./components/ItemBox";
 import HomeScreen from "./components/HomeScreen";
-import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
+import { Switch, Route, Link } from "react-router-dom";
 import NoResults from "./components/NoResults";
 import UserRegister from "./components/UserRegister";
 import Login from "./components/Login";
 import ConfirmEmail from "./components/ConfirmEmail";
+import { withRouter } from "react-router-dom";
 
-export default function App() {
+const App = ({ history }) => {
   const dispatch = useDispatch();
   const sideNavOpen = useSelector((state) => state.sideNavOpen);
   const errorText = useSelector((state) => state.errorText);
@@ -55,6 +57,13 @@ export default function App() {
     }
   }, [loginToken]);
 
+  // If we go to a different route we should de-select the current selected item type
+  // in the side nav.
+  useEffect(() => {
+    const currentPath = history.location.pathname;
+    if (currentPath !== "/items") dispatch(setSelectedItemType(null));
+  });
+
   const clickedOutsideSideMenu = (action) => {
     if (action.target.id === "side-nav-col") dispatch(setSideNavOpen(false));
   };
@@ -79,7 +88,7 @@ export default function App() {
   };
 
   return (
-    <Router>
+    <React.Fragment>
       <TopArea fluid className="bg-dark py-3">
         <Logo />
         <Row className="flex-nowrap">
@@ -139,9 +148,9 @@ export default function App() {
           </Row>
         </CollapseStyle>
       </BottomArea>
-    </Router>
+    </React.Fragment>
   );
-}
+};
 
 const CollapseStyle = styled(Collapse)`
   @media (max-width: 768px) {
@@ -212,3 +221,5 @@ const FadedOverlay = styled.div`
   width: 100%;
   z-index: 1;
 `;
+
+export default withRouter(App);
