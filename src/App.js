@@ -4,7 +4,13 @@ import { Col, Row, Container, Collapse, Alert } from "react-bootstrap";
 import SideNav from "./components/SideNav";
 import styled from "styled-components";
 import { useSelector, useDispatch } from "react-redux";
-import { setSideNavOpen, setErrorText } from "./redux/actions";
+import {
+  setSideNavOpen,
+  setErrorText,
+  setUserList,
+  setUserWishlist,
+  setUserName,
+} from "./redux/actions";
 import SideMenuToggle from "./components/SideMenuToggle";
 import SearchBar from "./components/SearchBar";
 import UserButton from "./components/UserButton";
@@ -21,6 +27,7 @@ export default function App() {
   const dispatch = useDispatch();
   const sideNavOpen = useSelector((state) => state.sideNavOpen);
   const errorText = useSelector((state) => state.errorText);
+  const loginToken = useSelector((state) => state.loginToken);
 
   useEffect(() => {
     let lastWindowSize = window.innerWidth;
@@ -39,8 +46,31 @@ export default function App() {
     };
   });
 
+  useEffect(() => {
+    getUserInfo();
+  }, [loginToken]);
+
   const clickedOutsideSideMenu = (action) => {
     if (action.target.id === "side-nav-col") dispatch(setSideNavOpen(false));
+  };
+
+  const getUserInfo = async () => {
+    const endpoint = "http://localhost:4000/user";
+    const options = { headers: { "auth-token": loginToken } };
+
+    try {
+      const req = await fetch(endpoint, options);
+      const res = await req.json();
+
+      if (res.error) dispatch(setErrorText(res.error));
+      else {
+        dispatch(setUserName(res.name));
+        dispatch(setUserList(res.list));
+        dispatch(setUserWishlist(res.wishlist));
+      }
+    } catch (err) {
+      console.log(err);
+    }
   };
 
   return (
