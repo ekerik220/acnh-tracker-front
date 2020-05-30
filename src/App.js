@@ -24,6 +24,7 @@ import UserRegister from "./components/UserRegister";
 import Login from "./components/Login";
 import ConfirmEmail from "./components/ConfirmEmail";
 import { withRouter } from "react-router-dom";
+import Catalogue from "./components/Catalogue";
 
 const App = ({ history }) => {
   const dispatch = useDispatch();
@@ -143,6 +144,9 @@ const App = ({ history }) => {
                   <Login />
                 </Route>
                 <Route path="/confirm/:userKey" children={<ConfirmEmail />} />
+                <Route path="/catalogue">
+                  <Catalogue />
+                </Route>
               </Switch>
             </ContentArea>
           </Row>
