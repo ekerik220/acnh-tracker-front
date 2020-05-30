@@ -6,6 +6,8 @@ import loading from "./loading";
 import loginToken from "./loginToken";
 import userName from "./userName";
 import errorText from "./errorText";
+import userList from "./userList";
+import userWishlist from "./userWishlist";
 
 const allReducers = combineReducers({
   sideNavOpen,
@@ -15,6 +17,8 @@ const allReducers = combineReducers({
   loginToken,
   userName,
   errorText,
+  userList,
+  userWishlist,
 });
 
 export default allReducers;

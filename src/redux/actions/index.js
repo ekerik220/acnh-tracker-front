@@ -46,3 +46,17 @@ export const setErrorText = (state) => {
     payload: state,
   };
 };
+
+export const setUserList = (state) => {
+  return {
+    type: "SET_USER_LIST",
+    payload: state,
+  };
+};
+
+export const setUserWishlist = (state) => {
+  return {
+    type: "SET_USER_WISHLIST",
+    payload: state,
+  };
+};
