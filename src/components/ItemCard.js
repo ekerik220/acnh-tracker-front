@@ -177,14 +177,14 @@ export default function ItemCard(props) {
           itemName={itemData.name}
           itemCategory={itemData["item-type"]}
           itemVariation={variants[selectedVariationIndex]}
-          variationCount={variants.length}
+          variationList={variants}
           selected={wanted}
         />
         <HaveButton
           itemName={itemData.name}
           itemCategory={itemData["item-type"]}
           itemVariation={variants[selectedVariationIndex]}
-          variationCount={variants.length}
+          variationList={variants}
           selected={owned}
         />
       </WantHaveBox>
