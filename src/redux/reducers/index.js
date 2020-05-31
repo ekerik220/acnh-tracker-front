@@ -22,6 +22,7 @@ const allReducers = combineReducers({
   userList,
   userWishlist,
   itemTotals,
+  allData,
 });
 
 export default allReducers;
