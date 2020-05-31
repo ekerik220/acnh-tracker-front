@@ -2,6 +2,10 @@ import React from "react";
 import styled from "styled-components";
 import { Badge, OverlayTrigger, Tooltip } from "react-bootstrap";
 
+String.prototype.capitalize = function () {
+  return this.charAt(0).toUpperCase() + this.slice(1);
+};
+
 export default function CatalogueItem({ item }) {
   const ownVariation = (variation) => {
     return item.variations.some((v) => v === variation);
@@ -9,7 +13,7 @@ export default function CatalogueItem({ item }) {
 
   return (
     <Wrapper>
-      <span>{item.item_name}</span>
+      <span>{item.item_name.capitalize()}</span>
       <div className="variations-badge">
         {item.variationList.length > 1 && (
           <OverlayTrigger
@@ -40,7 +44,7 @@ export default function CatalogueItem({ item }) {
 
 const Wrapper = styled.div`
   display: grid;
-  grid-template-columns: 1fr 1fr 1fr;
+  grid-template-columns: 5fr 1fr;
   border-bottom: 1px solid black;
 `;
 

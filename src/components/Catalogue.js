@@ -178,6 +178,36 @@ export default function Catalogue() {
 
   return (
     <Wrapper>
+      <ListSection>
+        <h3>Catalogue</h3>
+        <select onChange={handleCategoryChange}>
+          <option>All</option>
+          <optgroup label="Furniture">
+            <option>Housewares</option>
+            <option>Misc.</option>
+            <option>Wall-mounted</option>
+          </optgroup>
+          <optgroup label="Clothing">
+            <option>Tops</option>
+            <option>Bottoms</option>
+            <option>Dress-up</option>
+            <option>Headwear</option>
+            <option>Accessories</option>
+            <option>Socks</option>
+            <option>Shoes</option>
+            <option>Bags</option>
+            <option>Umbrellas</option>
+          </optgroup>
+          <optgroup label="Other">
+            <option>Wallpaper</option>
+            <option>Flooring</option>
+            <option>Rugs</option>
+            <option>Fossils</option>
+            <option>Music</option>
+          </optgroup>
+        </select>
+        <CatalogueItemArea displayedList={displayedList} />
+      </ListSection>
       <ProgressBarSection>
         <div>
           <CircularProgress
@@ -198,49 +228,43 @@ export default function Catalogue() {
           ></CircularProgress>
         </div>
       </ProgressBarSection>
-      <select onChange={handleCategoryChange}>
-        <option>All</option>
-        <optgroup label="Furniture">
-          <option>Housewares</option>
-          <option>Misc.</option>
-          <option>Wall-mounted</option>
-        </optgroup>
-        <optgroup label="Clothing">
-          <option>Tops</option>
-          <option>Bottoms</option>
-          <option>Dress-up</option>
-          <option>Headwear</option>
-          <option>Accessories</option>
-          <option>Socks</option>
-          <option>Shoes</option>
-          <option>Bags</option>
-          <option>Umbrellas</option>
-        </optgroup>
-        <optgroup label="Other">
-          <option>Wallpaper</option>
-          <option>Flooring</option>
-          <option>Rugs</option>
-          <option>Fossils</option>
-          <option>Music</option>
-        </optgroup>
-      </select>
-      <CatalogueItemArea displayedList={displayedList} />
     </Wrapper>
   );
 }
 
 const Wrapper = styled.div`
   display: flex;
-  flex-direction: column;
   height: 100%;
+
+  @media (max-width: 550px) {
+    flex-direction: column;
+  }
 `;
 
 const ProgressBarSection = styled.div`
   display: flex;
+  flex-direction: column;
   justify-content: space-around;
+  align-items: center;
   margin-top: 50px;
+  width: 100%;
 
   div {
-    width: 125px;
+    width: 200px;
   }
+
+  @media (max-width: 550px) {
+    flex-direction: row;
+
+    div {
+      width: 140px;
+    }
+  }
+`;
+
+const ListSection = styled.div`
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  width: 100%;
 `;
