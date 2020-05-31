@@ -28,6 +28,12 @@ export default function Catalogue() {
       total_v: itemTotals.housewares_v,
     },
     {
+      name: "Misc.",
+      type: "misc",
+      total: itemTotals.misc,
+      total_v: itemTotals.misc_v,
+    },
+    {
       name: "Wall-mounted",
       type: "wallmounted",
       total: itemTotals.wallmounted,
