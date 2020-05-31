@@ -17,7 +17,10 @@ export default function CatalogueItem({ item }) {
               <Tooltip>
                 <ToolTipList>
                   {item.variationList.map((v) => (
-                    <span className={ownVariation(v.name) && "owned"}>
+                    <span
+                      key={v.name}
+                      className={ownVariation(v.name) ? "owned" : null}
+                    >
                       {v.name}
                     </span>
                   ))}
