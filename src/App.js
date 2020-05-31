@@ -11,6 +11,7 @@ import {
   setUserWishlist,
   setUserName,
   setSelectedItemType,
+  setAllData,
 } from "./redux/actions";
 import SideMenuToggle from "./components/SideMenuToggle";
 import SearchBar from "./components/SearchBar";
@@ -65,6 +66,11 @@ const App = ({ history }) => {
     if (currentPath !== "/items") dispatch(setSelectedItemType(null));
   });
 
+  // Grab item data from server
+  useEffect(() => {
+    getItemList();
+  }, []);
+
   const clickedOutsideSideMenu = (action) => {
     if (action.target.id === "side-nav-col") dispatch(setSideNavOpen(false));
   };
@@ -83,6 +89,17 @@ const App = ({ history }) => {
         dispatch(setUserList(res.list));
         dispatch(setUserWishlist(res.wishlist));
       }
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
+  const getItemList = async () => {
+    const endpoint = "http://localhost:4000/data/list";
+    try {
+      const req = await fetch(endpoint);
+      const res = await req.json();
+      dispatch(setAllData(res));
     } catch (err) {
       console.log(err);
     }
