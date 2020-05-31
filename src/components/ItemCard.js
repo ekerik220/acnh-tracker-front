@@ -68,7 +68,7 @@ export default function ItemCard(props) {
     isInList(userWishlist, itemData.name, variants[selectedVariationIndex].name)
       ? setWanted(true)
       : setWanted(false);
-  }, [userList, userWishlist]);
+  }, [userList, userWishlist, selectedVariationIndex]);
 
   // Handle variant list scroll changes.
   useEffect(() => {
