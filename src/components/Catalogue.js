@@ -3,6 +3,7 @@ import styled from "styled-components";
 import CircularProgress from "./CircularProgress";
 import { useDispatch, useSelector } from "react-redux";
 import { setItemTotals } from "../redux/actions";
+import CatalogueItemArea from "./CatalogueItemArea";
 
 export default function Catalogue() {
   const dispatch = useDispatch();
@@ -217,6 +218,7 @@ export default function Catalogue() {
           <option>Music</option>
         </optgroup>
       </select>
+      <CatalogueItemArea displayedList={displayedList} />
     </Wrapper>
   );
 }
@@ -224,6 +226,7 @@ export default function Catalogue() {
 const Wrapper = styled.div`
   display: flex;
   flex-direction: column;
+  height: 100%;
 `;
 
 const ProgressBarSection = styled.div`
