@@ -24,11 +24,11 @@ export default function CircularProgress({ percent, label, tooltip }) {
           easingFunction={easeQuadInOut}
         >
           {(value) => {
-            const roundedValue = Math.round(value);
+            const fixedValue = toFixed(value, 2);
             return (
               <CircularProgressbar
                 value={value}
-                text={`${roundedValue}%`}
+                text={`${fixedValue}%`}
                 styles={buildStyles({ pathTransition: "none" })}
               />
             );
@@ -38,4 +38,9 @@ export default function CircularProgress({ percent, label, tooltip }) {
       </div>
     </OverlayTrigger>
   );
+}
+
+function toFixed(num, fixed) {
+  var re = new RegExp("^-?\\d+(?:.\\d{0," + (fixed || -1) + "})?");
+  return num.toString().match(re)[0];
 }
