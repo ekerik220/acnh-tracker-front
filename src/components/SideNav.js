@@ -16,6 +16,7 @@ const SideNav = (props) => {
   const linkList = useRef();
   const [activeCategory, setActiveCategory] = useState();
   const selectedItemType = useSelector((state) => state.selectedItemType);
+  const allData = useSelector((state) => state.allData);
 
   const data = [
     {
@@ -69,20 +70,11 @@ const SideNav = (props) => {
   useEffect(() => {
     if (!selectedItemType) return;
 
-    async function fetchMyAPI() {
-      try {
-        dispatch(setLoading(true));
-        const endpoint = "http://localhost:4000/data/" + selectedItemType;
-        const response = await fetch(endpoint);
-        const data = await response.json();
-        dispatch(setItemData(data));
-      } catch (err) {
-        console.log(err);
-      }
-      dispatch(setLoading(false));
-    }
+    const filteredItems = allData.filter(
+      (item) => item["item-type"] === selectedItemType
+    );
 
-    fetchMyAPI();
+    dispatch(setItemData(filteredItems));
   }, [selectedItemType]);
 
   return (
