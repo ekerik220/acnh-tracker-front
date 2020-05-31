@@ -1,37 +1,29 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { InputGroup, Button } from "react-bootstrap";
 import styled from "styled-components";
-import { useDispatch } from "react-redux";
-import { setLoading, setItemData, setSelectedItemType } from "../redux/actions";
+import { useDispatch, useSelector } from "react-redux";
+import { setItemData, setSelectedItemType } from "../redux/actions";
 import { withRouter } from "react-router-dom";
 
 const SearchBar = (props) => {
   const [searchQuery, setSearchQuery] = useState("");
+  const allData = useSelector((state) => state.allData);
   const dispatch = useDispatch();
 
   const handleKeyPress = (event) => {
     if (event.key === "Enter") search();
   };
 
-  const search = async () => {
+  const search = () => {
     if (searchQuery.length < 2) return;
-
-    dispatch(setItemData([]));
+    props.history.push("/items");
     dispatch(setSelectedItemType(null));
-    setSearchQuery("");
-
-    try {
-      dispatch(setLoading(true));
-      props.history.push("/items");
-      const endpoint = "http://localhost:4000/data/search?s=" + searchQuery;
-      const response = await fetch(endpoint);
-      const data = await response.json();
-      dispatch(setItemData(data));
-      if (data.length === 0) props.history.push("/noresults");
-    } catch (err) {
-      console.log(err);
-    }
-    dispatch(setLoading(false));
+    dispatch(setItemData([]));
+    const searchItems = allData.filter((ele) =>
+      ele.name.toLowerCase().includes(searchQuery.toLowerCase())
+    );
+    dispatch(setItemData([]));
+    dispatch(setItemData(searchItems));
   };
 
   return (
