@@ -27,7 +27,7 @@ export default function WantButton(props) {
       category: props.itemCategory,
       variation:
         props.itemVariation.name === "NA" ? null : props.itemVariation.name,
-      variationList: props.variationList,
+      variationList: props.variationList.map((v) => v.name),
     };
     const options = {
       method: "POST",

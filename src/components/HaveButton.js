@@ -27,7 +27,7 @@ export default function WantButton(props) {
       category: props.itemCategory,
       variation:
         props.itemVariation.name === "NA" ? null : props.itemVariation.name,
-      variationList: props.variationList,
+      variationList: props.variationList.map((v) => v.name),
     };
     const options = {
       method: "POST",
@@ -40,7 +40,7 @@ export default function WantButton(props) {
       const req = await fetch(endpoint, options);
       const res = await req.json();
       setLoading(false);
-
+      console.log(res);
       if (res.error) dispatch(setErrorText(res.error));
       else {
         dispatch(setUserWishlist(res.wishList));
