@@ -46,6 +46,12 @@ const Wrapper = styled.div`
   display: grid;
   grid-template-columns: 5fr 1fr;
   border-bottom: 1px solid black;
+  cursor: pointer;
+  transition: background-color 0.1s;
+
+  &:hover {
+    background: rgba(0, 0, 0, 0.1);
+  }
 `;
 
 const ToolTipList = styled.div`
