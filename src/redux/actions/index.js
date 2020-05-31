@@ -60,3 +60,10 @@ export const setUserWishlist = (state) => {
     payload: state,
   };
 };
+
+export const setItemTotals = (state) => {
+  return {
+    type: "SET_ITEM_TOTALS",
+    payload: state,
+  };
+};

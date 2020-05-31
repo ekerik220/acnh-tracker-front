@@ -8,6 +8,7 @@ import userName from "./userName";
 import errorText from "./errorText";
 import userList from "./userList";
 import userWishlist from "./userWishlist";
+import itemTotals from "./itemTotals";
 
 const allReducers = combineReducers({
   sideNavOpen,
@@ -19,6 +20,7 @@ const allReducers = combineReducers({
   errorText,
   userList,
   userWishlist,
+  itemTotals,
 });
 
 export default allReducers;
