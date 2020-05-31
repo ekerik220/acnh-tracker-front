@@ -67,3 +67,10 @@ export const setItemTotals = (state) => {
     payload: state,
   };
 };
+
+export const setAllData = (state) => {
+  return {
+    type: "SET_ALL_DATA",
+    payload: state,
+  };
+};

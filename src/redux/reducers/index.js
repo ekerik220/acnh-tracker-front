@@ -9,6 +9,7 @@ import errorText from "./errorText";
 import userList from "./userList";
 import userWishlist from "./userWishlist";
 import itemTotals from "./itemTotals";
+import allData from "./allData";
 
 const allReducers = combineReducers({
   sideNavOpen,
