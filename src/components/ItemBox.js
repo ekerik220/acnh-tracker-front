@@ -12,7 +12,7 @@ const ITEMS_PER_PAGE = 24;
 export default function ItemBox({}) {
   const itemData = useSelector((state) => state.itemData);
   const selectedItemType = useSelector((state) => state.selectedItemType);
-  const loading = useSelector((state) => state.loading);
+  const allData = useSelector((state) => state.allData);
   const [loadedData, setLoadedData] = useState([]);
   const [page, setPage] = useState(1);
 
@@ -63,7 +63,7 @@ export default function ItemBox({}) {
         </TopArea>
       )}
       <ItemCardArea>
-        {loading && (
+        {!allData && (
           <div className="loading-spinner">
             <i className="fas fa-cog fa-spin"></i>
           </div>
