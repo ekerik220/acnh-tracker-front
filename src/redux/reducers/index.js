@@ -10,6 +10,7 @@ import userList from "./userList";
 import userWishlist from "./userWishlist";
 import itemTotals from "./itemTotals";
 import allData from "./allData";
+import popupData from "./popupData";
 
 const allReducers = combineReducers({
   sideNavOpen,
@@ -23,6 +24,7 @@ const allReducers = combineReducers({
   userWishlist,
   itemTotals,
   allData,
+  popupData,
 });
 
 export default allReducers;

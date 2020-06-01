@@ -74,3 +74,10 @@ export const setAllData = (state) => {
     payload: state,
   };
 };
+
+export const setPopupData = (state) => {
+  return {
+    type: "SET_POPUP_DATA",
+    payload: state,
+  };
+};
