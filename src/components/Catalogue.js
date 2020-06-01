@@ -4,11 +4,13 @@ import CircularProgress from "./CircularProgress";
 import { useDispatch, useSelector } from "react-redux";
 import { setItemTotals } from "../redux/actions";
 import CatalogueItemArea from "./CatalogueItemArea";
+import ItemCard from "./ItemCard";
 
 export default function Catalogue() {
   const dispatch = useDispatch();
   const itemTotals = useSelector((state) => state.itemTotals);
   const userList = useSelector((state) => state.userList);
+  const popupData = useSelector((state) => state.popupData);
   const [selectedCategoryIndex, setSelectedCategoryIndex] = useState(0);
   const [displayedList, setDisplayedList] = useState(userList);
   const [currentTotal, setCurrentTotal] = useState(0);
@@ -174,10 +176,15 @@ export default function Catalogue() {
 
     setCurrentTotal(category.total);
     setCurrentTotalVariations(category.total_v);
-  }, [selectedCategoryIndex]);
+  }, [selectedCategoryIndex, userList]);
 
   return (
     <Wrapper>
+      {popupData && (
+        <div className="popup-card">
+          <ItemCard itemData={popupData} closeButton={true} />
+        </div>
+      )}
       <ListSection>
         <h3>Catalogue</h3>
         <select onChange={handleCategoryChange}>
@@ -235,6 +242,15 @@ export default function Catalogue() {
 const Wrapper = styled.div`
   display: flex;
   height: 100%;
+  position: relative;
+
+  .popup-card {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    background: white;
+  }
 
   @media (max-width: 550px) {
     flex-direction: column;

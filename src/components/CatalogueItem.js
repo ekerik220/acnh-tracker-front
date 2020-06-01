@@ -1,18 +1,32 @@
 import React from "react";
 import styled from "styled-components";
 import { Badge, OverlayTrigger, Tooltip } from "react-bootstrap";
+import { useSelector, useDispatch } from "react-redux";
+import { setPopupData } from "../redux/actions";
 
 String.prototype.capitalize = function () {
   return this.charAt(0).toUpperCase() + this.slice(1);
 };
 
 export default function CatalogueItem({ item }) {
+  const allData = useSelector((state) => state.allData);
+  const dispatch = useDispatch();
+
   const ownVariation = (variation) => {
     return item.variations.some((v) => v === variation);
   };
 
+  const showItemPopup = () => {
+    const itemData = getItemData(item.item_name);
+    dispatch(setPopupData(itemData));
+  };
+
+  const getItemData = (itemName) => {
+    return allData.find((item) => item.name === itemName);
+  };
+
   return (
-    <Wrapper>
+    <Wrapper onClick={showItemPopup}>
       <span>{item.item_name.capitalize()}</span>
       <div className="variations-badge">
         {item.variationList.length > 1 && (
