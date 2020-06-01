@@ -69,7 +69,7 @@ export default function ItemBox({}) {
           </div>
         )}
         {loadedData.map((item, index) => (
-          <ItemCard key={index} item={item} />
+          <ItemCard key={index} itemData={item} />
         ))}
       </ItemCardArea>
       {loadedData.length > 0 && (

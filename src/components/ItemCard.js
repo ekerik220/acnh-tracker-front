@@ -1,5 +1,6 @@
 import React, { useRef, useState, useEffect } from "react";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
+import { setPopupData } from "../redux/actions";
 import styled from "styled-components";
 import WantButton from "./WantButton";
 import HaveButton from "./HaveButton";
@@ -8,7 +9,8 @@ String.prototype.capitalize = function () {
   return this.charAt(0).toUpperCase() + this.slice(1);
 };
 
-export default function ItemCard(props) {
+export default function ItemCard({ itemData, closeButton = false }) {
+  const dispatch = useDispatch();
   const variationsArea = useRef();
   const variationLeftArrow = useRef();
   const variationRightArrow = useRef();
@@ -23,7 +25,6 @@ export default function ItemCard(props) {
   const userList = useSelector((state) => state.userList);
   const userWishlist = useSelector((state) => state.userWishlist);
 
-  const itemData = props.item;
   const variants = itemData.variations;
   const img_url_prefix = "https://acnhcdn.com/latest/FtrIcon/";
 
@@ -117,7 +118,13 @@ export default function ItemCard(props) {
 
   return (
     <OuterBox>
-      <TagBox className={owned ? "owned" : wanted ? "wanted" : null}></TagBox>
+      <TagBox className={owned ? "owned" : wanted ? "wanted" : null}>
+        <i
+          class="far fa-times-circle"
+          onClick={() => dispatch(setPopupData(null))}
+          hidden={!closeButton}
+        ></i>
+      </TagBox>
       <PictureBox>
         <i
           className="fas fa-arrow-circle-left"
@@ -204,6 +211,19 @@ const TagBox = styled.div`
   background: grey;
   height: 25px;
   transition: background-color 0.5s;
+  display: grid;
+  align-items: center;
+
+  i {
+    justify-self: end;
+    cursor: pointer;
+    color: white;
+    margin-right: 3px;
+  }
+
+  i:hover {
+    color: black;
+  }
 
   &.owned {
     background: #2ecc40;
