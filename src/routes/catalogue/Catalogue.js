@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import CircularProgress from "../../components/CircularProgress/CircularProgress";
 import { useDispatch, useSelector } from "react-redux";
-import { setItemTotals } from "../../redux/actions";
+import { setItemTotals } from "redux/slices";
 import CatalogueItemArea from "../../components/CatalogueItemArea/CatalogueItemArea";
 import ItemCard from "../../components/ItemCard/ItemCard";
 

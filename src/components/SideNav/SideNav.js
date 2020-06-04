@@ -5,7 +5,7 @@ import {
   setSideNavOpen,
   setItemData,
   setSelectedItemType,
-} from "redux/actions";
+} from "redux/slices";
 import { useDispatch, useSelector } from "react-redux";
 import { withRouter } from "react-router-dom";
 

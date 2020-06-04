@@ -3,7 +3,7 @@ import styled from "styled-components";
 import { Form, Button, Alert } from "react-bootstrap";
 import { withRouter } from "react-router-dom";
 import { useDispatch } from "react-redux";
-import { setLoginToken, setUserName } from "../../redux/actions";
+import { setLoginToken, setUserName } from "redux/slices";
 
 const Login = (props) => {
   const [email, setEmail] = useState("");

@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { InputGroup, Button } from "react-bootstrap";
 import styled from "styled-components";
 import { useDispatch, useSelector } from "react-redux";
-import { setItemData, setSelectedItemType } from "../../../../redux/actions";
+import { setItemData, setSelectedItemType } from "redux/slices";
 import { withRouter } from "react-router-dom";
 
 const SearchBar = (props) => {

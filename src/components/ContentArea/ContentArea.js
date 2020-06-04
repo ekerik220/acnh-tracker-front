@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import {useDispatch, useSelector} from 'react-redux';
-import {setErrorText} from 'redux/actions';
+import {setErrorText} from 'redux/slices';
 import {Switch, Route} from 'react-router-dom';
 import {Col, Alert} from 'react-bootstrap';
 import {HomeScreen, ItemBox, NoResults, UserRegister, Login, Catalogue, ConfirmEmail} from 'routes';

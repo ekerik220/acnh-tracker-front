@@ -1,7 +1,7 @@
 import React from "react";
 import styled from "styled-components";
 import { Image } from "react-bootstrap";
-import { setItemData, setSelectedItemType } from "redux/actions";
+import { setItemData, setSelectedItemType } from "redux/slices";
 import { useDispatch } from "react-redux";
 import { withRouter } from "react-router-dom";
 

@@ -9,8 +9,8 @@ import {
   setUserWishlist,
   setUserName,
   setSelectedItemType,
-  setAllData,
-} from "redux/actions";
+} from "redux/slices";
+import {setAllData} from 'redux/slices';
 import { withRouter } from "react-router-dom";
 import { Col, Row, Container, Collapse } from "react-bootstrap";
 import {TopNav, SideNav, ContentArea} from "components";

@@ -1,6 +1,6 @@
 import React, { useRef, useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { setPopupData } from "../../redux/actions";
+import { setPopupData } from "redux/slices";
 import styled from "styled-components";
 import WantButton from "./components/WantButton/WantButton";
 import HaveButton from "./components/HaveButton/HaveButton";

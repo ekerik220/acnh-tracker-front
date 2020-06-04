@@ -5,7 +5,7 @@ import {
   setErrorText,
   setUserWishlist,
   setUserList,
-} from "../../../../redux/actions";
+} from "redux/slices";
 import { useSelector, useDispatch } from "react-redux";
 
 export default function WantButton(props) {

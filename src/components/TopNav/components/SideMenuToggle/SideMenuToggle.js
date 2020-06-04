@@ -1,7 +1,7 @@
 import React from "react";
 import styled from "styled-components";
 import { useSelector, useDispatch } from "react-redux";
-import { setSideNavOpen } from "redux/actions";
+import { setSideNavOpen } from "redux/slices";
 
 export default function SideMenuToggle() {
   const dispatch = useDispatch();

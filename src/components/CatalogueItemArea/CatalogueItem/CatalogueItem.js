@@ -2,7 +2,7 @@ import React from "react";
 import styled from "styled-components";
 import { Badge, OverlayTrigger, Tooltip } from "react-bootstrap";
 import { useSelector, useDispatch } from "react-redux";
-import { setPopupData } from "../../../redux/actions";
+import { setPopupData } from "redux/slices";
 
 String.prototype.capitalize = function () {
   return this.charAt(0).toUpperCase() + this.slice(1);
