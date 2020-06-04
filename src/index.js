@@ -3,9 +3,9 @@ import ReactDOM from "react-dom";
 import App from "./components/App/App";
 import * as serviceWorker from "./serviceWorker";
 import allReducers from "./redux/reducers";
-import { createStore } from "redux";
+import { configureStore } from "@reduxjs/toolkit";
+import reduxThunk from 'redux-thunk';
 import { Provider } from "react-redux";
-import { composeWithDevTools } from "redux-devtools-extension";
 import { persistStore, persistReducer } from "redux-persist";
 import { PersistGate } from "redux-persist/integration/react";
 import storage from "redux-persist/lib/storage";
@@ -17,13 +17,10 @@ const persistConfig = {
 };
 
 const persistedReducer = persistReducer(persistConfig, allReducers);
-
-const composeEnhancers = composeWithDevTools({
-  trace: true,
-  traceLimit: 25,
+const store = configureStore({
+  reducer: persistedReducer,
+  middleware: [reduxThunk]
 });
-
-const store = createStore(persistedReducer, composeEnhancers());
 const persistor = persistStore(store);
 
 ReactDOM.render(
