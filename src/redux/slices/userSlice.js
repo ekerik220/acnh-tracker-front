@@ -28,6 +28,7 @@ const userSlice = createSlice({
     changeListSuccess: (state, action) => {
       state.list = action.payload.list;
       state.wishlist = action.payload.wishList;
+      state.error = null;
     },
     changeListFailed: (state, action) => {
       state.error = action.payload;
@@ -46,35 +47,46 @@ export default userSlice.reducer;
 
 export const fetchUser = (token) => (dispatch) => {
   return getUserInfo(token).then(
-    (userInfo) => dispatch(getUserSuccess(userInfo)),
+    (userInfo) => {
+      if (userInfo.error) dispatch(getUserFailed(userInfo.error));
+      else dispatch(getUserSuccess(userInfo));
+    },
     (err) => dispatch(getUserFailed(err.toString()))
   );
 };
 
 export const addItemToUserList = (loginToken, item) => (dispatch) => {
   return addItemToList(loginToken, item).then(
-    (listInfo) => dispatch(changeListSuccess(listInfo)),
+    (listInfo) => listChangeSuccessHandler(listInfo, dispatch),
     (err) => dispatch(changeListFailed(err.toString()))
   );
 };
 
 export const removeItemFromUserList = (loginToken, item) => (dispatch) => {
   return removeItemFromList(loginToken, item).then(
-    (listInfo) => dispatch(changeListSuccess(listInfo)),
+    (listInfo) => listChangeSuccessHandler(listInfo, dispatch),
     (err) => dispatch(changeListFailed(err.toString()))
   );
 };
 
 export const addItemToUserWishlist = (loginToken, item) => (dispatch) => {
   return addItemToWishlist(loginToken, item).then(
-    (listInfo) => dispatch(changeListSuccess(listInfo)),
+    (listInfo) => listChangeSuccessHandler(listInfo, dispatch),
     (err) => dispatch(changeListFailed(err.toString()))
   );
 };
 
 export const removeItemFromUserWishlist = (loginToken, item) => (dispatch) => {
   return removeItemFromWishlist(loginToken, item).then(
-    (listInfo) => dispatch(changeListSuccess(listInfo)),
+    (listInfo) => listChangeSuccessHandler(listInfo, dispatch),
     (err) => dispatch(changeListFailed(err.toString()))
   );
+};
+
+/*
+ * Helper functions
+ */
+const listChangeSuccessHandler = (listInfo, dispatch) => {
+  if (listInfo.error) dispatch(changeListFailed(listInfo.error));
+  else dispatch(changeListSuccess(listInfo));
 };
