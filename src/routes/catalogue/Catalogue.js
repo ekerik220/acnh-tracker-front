@@ -9,7 +9,7 @@ import ItemCard from "../../components/ItemCard/ItemCard";
 export default function Catalogue() {
   const dispatch = useDispatch();
   const itemTotals = useSelector((state) => state.itemTotals);
-  const userList = useSelector((state) => state.userList);
+  const userList = useSelector((state) => state.user.list);
   const popupData = useSelector((state) => state.popupData);
   const [selectedCategoryIndex, setSelectedCategoryIndex] = useState(0);
   const [displayedList, setDisplayedList] = useState(userList);

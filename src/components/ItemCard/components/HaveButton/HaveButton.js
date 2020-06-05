@@ -1,62 +1,42 @@
 import React, { useState } from "react";
 import styled from "styled-components";
-import {
-  setItemData,
-  setErrorText,
-  setUserWishlist,
-  setUserList,
-} from "redux/slices";
+import { addItemToUserList, removeItemFromUserList } from "redux/slices";
 import { useSelector, useDispatch } from "react-redux";
 
-export default function WantButton(props) {
+export default function HaveButton({
+  itemName,
+  itemCategory,
+  itemVariation,
+  variationList,
+  selected,
+}) {
   const loginToken = useSelector((state) => state.loginToken);
   const [loading, setLoading] = useState(false);
   const dispatch = useDispatch();
 
-  const addToWishList = async () => {
-    postToEndpoint("http://localhost:4000/list/addToList");
+  const item = {
+    itemName,
+    itemCategory,
+    itemVariation,
+    variationList,
   };
 
-  const removeFromWishList = async () => {
-    postToEndpoint("http://localhost:4000/list/listDelete");
+  const addToList = async () => {
+    setLoading(true);
+    dispatch(addItemToUserList(loginToken, item)).then(() => setLoading(false));
   };
 
-  const postToEndpoint = async (endpoint) => {
-    const body = {
-      item_name: props.itemName,
-      category: props.itemCategory,
-      variation:
-        props.itemVariation.name === "NA" ? null : props.itemVariation.name,
-      variationList: props.variationList.map((v) => v.name),
-    };
-    const options = {
-      method: "POST",
-      headers: { "Content-Type": "application/json", "auth-token": loginToken },
-      body: JSON.stringify(body),
-    };
-
-    try {
-      setLoading(true);
-      const req = await fetch(endpoint, options);
-      const res = await req.json();
-      setLoading(false);
-      console.log(res);
-      if (res.error) dispatch(setErrorText(res.error));
-      else {
-        dispatch(setUserWishlist(res.wishList));
-        dispatch(setUserList(res.list));
-      }
-    } catch (err) {
-      console.log(err);
-    }
+  const removeFromList = async () => {
+    setLoading(true);
+    dispatch(removeItemFromUserList(loginToken, item)).then(() =>
+      setLoading(false)
+    );
   };
 
   return (
     <Button
-      className={loading ? "loading" : props.selected ? "selected" : null}
-      onClick={
-        loading ? null : props.selected ? removeFromWishList : addToWishList
-      }
+      className={loading ? "loading" : selected ? "selected" : null}
+      onClick={loading ? null : selected ? removeFromList : addToList}
     >
       {loading ? <i class="fas fa-spinner fa-spin"></i> : "Have"}
     </Button>

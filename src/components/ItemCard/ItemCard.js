@@ -2,8 +2,7 @@ import React, { useRef, useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { setPopupData } from "redux/slices";
 import styled from "styled-components";
-import WantButton from "./components/WantButton/WantButton";
-import HaveButton from "./components/HaveButton/HaveButton";
+import { HaveButton, WantButton } from "./components";
 
 String.prototype.capitalize = function () {
   return this.charAt(0).toUpperCase() + this.slice(1);
@@ -22,8 +21,8 @@ export default function ItemCard({ itemData, closeButton = false }) {
   const [wanted, setWanted] = useState(false);
   const [owned, setOwned] = useState(false);
 
-  const userList = useSelector((state) => state.userList);
-  const userWishlist = useSelector((state) => state.userWishlist);
+  const userList = useSelector((state) => state.user.list);
+  const userWishlist = useSelector((state) => state.user.wishlist);
 
   const variants = itemData.variations;
   const img_url_prefix = "https://acnhcdn.com/latest/FtrIcon/";
@@ -183,15 +182,15 @@ export default function ItemCard({ itemData, closeButton = false }) {
         <WantButton
           itemName={itemData.name}
           itemCategory={itemData["item-type"]}
-          itemVariation={variants[selectedVariationIndex]}
-          variationList={variants}
+          itemVariation={variants[selectedVariationIndex].name}
+          variationList={variants.map((v) => v.name)}
           selected={wanted}
         />
         <HaveButton
           itemName={itemData.name}
           itemCategory={itemData["item-type"]}
-          itemVariation={variants[selectedVariationIndex]}
-          variationList={variants}
+          itemVariation={variants[selectedVariationIndex].name}
+          variationList={variants.map((v) => v.name)}
           selected={owned}
         />
       </WantHaveBox>

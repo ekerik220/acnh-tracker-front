@@ -5,10 +5,8 @@ import { useSelector, useDispatch } from "react-redux";
 import {
   setSideNavOpen,
   setErrorText,
-  setUserList,
-  setUserWishlist,
-  setUserName,
   setSelectedItemType,
+  fetchUser
 } from "redux/slices";
 import {setAllData} from 'redux/slices';
 import { withRouter } from "react-router-dom";
@@ -38,31 +36,7 @@ const App = ({ history }) => {
   });
 
   useEffect(() => {
-    const getUserInfo = async () => {
-      const endpoint = "http://localhost:4000/user";
-      const options = { headers: { "auth-token": loginToken } };
-  
-      try {
-        const req = await fetch(endpoint, options);
-        const res = await req.json();
-  
-        if (res.error) dispatch(setErrorText(res.error));
-        else {
-          dispatch(setUserName(res.name));
-          dispatch(setUserList(res.list));
-          dispatch(setUserWishlist(res.wishlist));
-        }
-      } catch (err) {
-        console.log(err);
-      }
-    };
-
-    if (loginToken) getUserInfo();
-    else {
-      dispatch(setUserName(null));
-      dispatch(setUserList([]));
-      dispatch(setUserWishlist([]));
-    }
+    dispatch(fetchUser(loginToken));
   }, [loginToken, dispatch]);
 
   // If we go to a different route we should de-select the current selected item type

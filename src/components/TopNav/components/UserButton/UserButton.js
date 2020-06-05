@@ -2,11 +2,10 @@ import React from "react";
 import { Dropdown } from "react-bootstrap";
 import styled from "styled-components";
 import { useSelector, useDispatch } from "react-redux";
-import { setUserName, setLoginToken } from "redux/slices";
+import { setLoginToken } from "redux/slices";
 
 export default function UserButton() {
-  // If these are both non-null, then we are logged in
-  const userName = useSelector((state) => state.userName);
+  const userName = useSelector((state) => state.user.name);
   const loginToken = useSelector((state) => state.loginToken);
   const dispatch = useDispatch();
 
