@@ -9,6 +9,7 @@ import errorText from "./errorTextSlice";
 import itemTotals from "./itemTotalsSlice";
 import allData from "./allDataSlice";
 import popupData from "./popupDataSlice";
+import catalogue from "./catalogueSlice";
 
 const allReducers = combineReducers({
   allData,
@@ -21,6 +22,7 @@ const allReducers = combineReducers({
   user,
   itemTotals,
   popupData,
+  catalogue,
 });
 
 export default allReducers;
@@ -42,3 +44,4 @@ export {
   removeItemFromUserWishlist,
   resetUserError,
 } from "./userSlice";
+export { setCategory } from "./catalogueSlice";
