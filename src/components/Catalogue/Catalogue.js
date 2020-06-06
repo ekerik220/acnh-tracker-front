@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from "react";
 import styled from "styled-components";
-import CircularProgress from "../../components/CircularProgress/CircularProgress";
+import CircularProgress from "./components/CircularProgress/CircularProgress";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchItemTotals } from "redux/slices";
-import CatalogueItemArea from "../../components/CatalogueItemArea/CatalogueItemArea";
-import ItemCard from "../../components/ItemCard/ItemCard";
+import CatalogueItemArea from "./components/CatalogueItemArea/CatalogueItemArea";
+import { ItemCard } from "components/ItemCard";
 
 export default function Catalogue() {
   const dispatch = useDispatch();
@@ -140,6 +140,9 @@ export default function Catalogue() {
     dispatch(fetchItemTotals());
   }, [dispatch]);
 
+  // The category list in the DOM isn't in the same order as the category list
+  // array that stores all the information about each category so we need some
+  // logic to match them up.
   const handleCategoryChange = (event) => {
     const select = event.target;
     const selectedIndex = select.selectedIndex;

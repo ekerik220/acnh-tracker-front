@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from "react";
-import ItemCard from "../../components/ItemCard/ItemCard";
+import ItemCard from "../ItemCard/ItemCard";
 import styled from "styled-components";
 import { useSelector } from "react-redux";
 import Pagination from "rc-pagination";
-import "../../rc-pagination.css";
-import localeInfo from "../../locale/en_US";
+import "rc-pagination.css";
+import localeInfo from "locale/en_US";
 import { animateScroll as scroll } from "react-scroll";
 
 const ITEMS_PER_PAGE = 24;

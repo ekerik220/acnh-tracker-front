@@ -7,12 +7,11 @@ import { Col, Alert } from "react-bootstrap";
 import {
   HomeScreen,
   ItemBox,
-  NoResults,
   UserRegister,
   Login,
   Catalogue,
   ConfirmEmail,
-} from "routes";
+} from "components";
 
 function ContentArea() {
   const dispatch = useDispatch();
@@ -32,9 +31,6 @@ function ContentArea() {
         </Route>
         <Route path="/items">
           <ItemBox />
-        </Route>
-        <Route path="/noresults">
-          <NoResults />
         </Route>
         <Route path="/register">
           <UserRegister />
