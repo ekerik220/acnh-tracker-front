@@ -1,49 +1,54 @@
-import React from 'react';
-import styled from 'styled-components';
-import {useDispatch, useSelector} from 'react-redux';
-import {setErrorText} from 'redux/slices';
-import {Switch, Route} from 'react-router-dom';
-import {Col, Alert} from 'react-bootstrap';
-import {HomeScreen, ItemBox, NoResults, UserRegister, Login, Catalogue, ConfirmEmail} from 'routes';
+import React from "react";
+import styled from "styled-components";
+import { useDispatch, useSelector } from "react-redux";
+import { resetAllDataError } from "redux/slices";
+import { Switch, Route } from "react-router-dom";
+import { Col, Alert } from "react-bootstrap";
+import {
+  HomeScreen,
+  ItemBox,
+  NoResults,
+  UserRegister,
+  Login,
+  Catalogue,
+  ConfirmEmail,
+} from "routes";
 
 function ContentArea() {
-    const dispatch = useDispatch();
+  const dispatch = useDispatch();
 
-    const errorText = useSelector(state => state.errorText);
+  const error = useSelector((state) => state.allData.error);
 
-    return (
-        <StyledContainer className="p-3" id="content-area">
-              <Alert
-                variant="danger"
-                onClose={() => dispatch(setErrorText(null))}
-                dismissible
-                hidden={!errorText}
-              >
-                <p>{errorText}</p>
-              </Alert>
-              <Switch>
-                <Route exact path="/">
-                  <HomeScreen />
-                </Route>
-                <Route path="/items">
-                  <ItemBox />
-                </Route>
-                <Route path="/noresults">
-                  <NoResults />
-                </Route>
-                <Route path="/register">
-                  <UserRegister />
-                </Route>
-                <Route path="/login">
-                  <Login />
-                </Route>
-                <Route path="/confirm/:userKey" children={<ConfirmEmail />} />
-                <Route path="/catalogue">
-                  <Catalogue />
-                </Route>
-              </Switch>
-            </StyledContainer>
-    )
+  const closeAlert = () => dispatch(resetAllDataError());
+
+  return (
+    <StyledContainer className="p-3" id="content-area">
+      <Alert variant="danger" onClose={closeAlert} dismissible hidden={!error}>
+        <p>{error}</p>
+      </Alert>
+      <Switch>
+        <Route exact path="/">
+          <HomeScreen />
+        </Route>
+        <Route path="/items">
+          <ItemBox />
+        </Route>
+        <Route path="/noresults">
+          <NoResults />
+        </Route>
+        <Route path="/register">
+          <UserRegister />
+        </Route>
+        <Route path="/login">
+          <Login />
+        </Route>
+        <Route path="/confirm/:userKey" children={<ConfirmEmail />} />
+        <Route path="/catalogue">
+          <Catalogue />
+        </Route>
+      </Switch>
+    </StyledContainer>
+  );
 }
 
 const StyledContainer = styled(Col)`

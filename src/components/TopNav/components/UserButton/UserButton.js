@@ -2,15 +2,15 @@ import React from "react";
 import { Dropdown } from "react-bootstrap";
 import styled from "styled-components";
 import { useSelector, useDispatch } from "react-redux";
-import { setLoginToken } from "redux/slices";
+import { logout } from "redux/slices";
 
 export default function UserButton() {
   const userName = useSelector((state) => state.user.name);
-  const loginToken = useSelector((state) => state.loginToken);
+  const loginToken = useSelector((state) => state.loginToken.token);
   const dispatch = useDispatch();
 
-  const logout = () => {
-    dispatch(setLoginToken(null));
+  const handleLogout = () => {
+    dispatch(logout());
   };
 
   return (
@@ -26,7 +26,7 @@ export default function UserButton() {
           <Dropdown.Item disabled>{userName}</Dropdown.Item>
           <Dropdown.Item href="/catalogue">Catalogue</Dropdown.Item>
           <Dropdown.Item href="/wishlist">Wishlist</Dropdown.Item>
-          <Dropdown.Item onSelect={logout}>Logout</Dropdown.Item>
+          <Dropdown.Item onSelect={handleLogout}>Logout</Dropdown.Item>
         </Dropdown.Menu>
       ) : (
         <Dropdown.Menu>

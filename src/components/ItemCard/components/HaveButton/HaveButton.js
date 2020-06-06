@@ -10,7 +10,7 @@ export default function HaveButton({
   variationList,
   selected,
 }) {
-  const loginToken = useSelector((state) => state.loginToken);
+  const loginToken = useSelector((state) => state.loginToken.token);
   const [loading, setLoading] = useState(false);
   const dispatch = useDispatch();
 
@@ -21,12 +21,12 @@ export default function HaveButton({
     variationList,
   };
 
-  const addToList = async () => {
+  const addToList = () => {
     setLoading(true);
     dispatch(addItemToUserList(loginToken, item)).then(() => setLoading(false));
   };
 
-  const removeFromList = async () => {
+  const removeFromList = () => {
     setLoading(true);
     dispatch(removeItemFromUserList(loginToken, item)).then(() =>
       setLoading(false)

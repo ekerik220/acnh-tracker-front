@@ -1,59 +1,38 @@
-import React, { useState, useRef } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import styled from "styled-components";
 import { Form, Button, Alert } from "react-bootstrap";
 import { withRouter } from "react-router-dom";
-import { useDispatch } from "react-redux";
-import { setLoginToken, setUserName } from "redux/slices";
+import { useDispatch, useSelector } from "react-redux";
+import { login, resetLoginError } from "redux/slices";
 
 const Login = (props) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [errorVisible, setErrorVisible] = useState(false);
   const [loading, setLoading] = useState(false);
-  const errorText = useRef();
   const dispatch = useDispatch();
+  const error = useSelector((state) => state.loginToken.error);
+  const token = useSelector((state) => state.loginToken.token);
 
-  const submit = async (event) => {
+  const submit = (event) => {
     event.preventDefault();
-
-    const endpoint = "http://localhost:4000/user/login";
-    const body = {
-      email: email,
-      password: password,
-    };
-    const options = {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(body),
-    };
-
-    try {
-      setLoading(true);
-      const req = await fetch(endpoint, options);
-      const res = await req.json();
+    setLoading(true);
+    dispatch(login(email, password)).then(() => {
       setLoading(false);
-      if (res.error) {
-        errorText.current.innerHTML = res.error;
-        setErrorVisible(true);
-      } else {
-        dispatch(setLoginToken(res.token));
-        props.history.push("/");
-      }
-    } catch (err) {
-      console.log(err);
-      return;
-    }
+    });
   };
+
+  const closeAlert = () => dispatch(resetLoginError());
+  const handleEmailInputChange = (event) => setEmail(event.target.value);
+  const handlePasswordInputChange = (event) => setPassword(event.target.value);
+
+  useEffect(() => {
+    if (token) props.history.push("/");
+  });
 
   return (
     <Wrapper>
-      <Alert
-        variant="danger"
-        onClose={() => setErrorVisible(false)}
-        dismissible
-        hidden={!errorVisible}
-      >
-        <p className="alert-text" ref={errorText}></p>
+      <Alert variant="danger" onClose={closeAlert} dismissible hidden={!error}>
+        <p className="alert-text">{error}</p>
       </Alert>
       <h3>Login</h3>
       <div>
@@ -64,7 +43,7 @@ const Login = (props) => {
               type="email"
               placeholder="Enter email"
               value={email}
-              onChange={(e) => setEmail(e.target.value)}
+              onChange={handleEmailInputChange}
               required
             />
           </Form.Group>
@@ -74,7 +53,7 @@ const Login = (props) => {
               type="password"
               placeholder="Password"
               value={password}
-              onChange={(e) => setPassword(e.target.value)}
+              onChange={handlePasswordInputChange}
               minlength={6}
               required
             />

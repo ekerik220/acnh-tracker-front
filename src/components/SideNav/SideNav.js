@@ -1,11 +1,7 @@
 import React, { useRef, useState, useEffect } from "react";
 import styled from "styled-components";
 import { Accordion, Card } from "react-bootstrap";
-import {
-  setSideNavOpen,
-  setItemData,
-  setSelectedItemType,
-} from "redux/slices";
+import { setSideNavOpen, setItemData, setSelectedItemType } from "redux/slices";
 import { useDispatch, useSelector } from "react-redux";
 import { withRouter } from "react-router-dom";
 
@@ -15,7 +11,7 @@ const SideNav = (props) => {
   const linkList = useRef();
   const [activeCategory, setActiveCategory] = useState();
   const selectedItemType = useSelector((state) => state.selectedItemType);
-  const allData = useSelector((state) => state.allData);
+  const allData = useSelector((state) => state.allData.list);
 
   const data = [
     {

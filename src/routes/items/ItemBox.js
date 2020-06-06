@@ -12,17 +12,19 @@ const ITEMS_PER_PAGE = 24;
 export default function ItemBox({}) {
   const itemData = useSelector((state) => state.itemData);
   const selectedItemType = useSelector((state) => state.selectedItemType);
-  const allData = useSelector((state) => state.allData);
+  const allData = useSelector((state) => state.allData.list);
   const [loadedData, setLoadedData] = useState([]);
   const [page, setPage] = useState(1);
 
   useEffect(() => {
+    if (!itemData) return;
     const firstPage = itemData.slice(0, ITEMS_PER_PAGE);
     setLoadedData(firstPage);
     setPage(1);
   }, [itemData]);
 
   useEffect(() => {
+    if (!itemData) return;
     const startIndex = (page - 1) * ITEMS_PER_PAGE;
     const endIndex = page * ITEMS_PER_PAGE;
     const itemsToLoad = itemData.slice(startIndex, endIndex);

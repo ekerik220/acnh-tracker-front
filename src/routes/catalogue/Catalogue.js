@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import CircularProgress from "../../components/CircularProgress/CircularProgress";
 import { useDispatch, useSelector } from "react-redux";
-import { setItemTotals } from "redux/slices";
+import { fetchItemTotals } from "redux/slices";
 import CatalogueItemArea from "../../components/CatalogueItemArea/CatalogueItemArea";
 import ItemCard from "../../components/ItemCard/ItemCard";
 
@@ -13,8 +13,8 @@ export default function Catalogue() {
   const popupData = useSelector((state) => state.popupData);
   const [selectedCategoryIndex, setSelectedCategoryIndex] = useState(0);
   const [displayedList, setDisplayedList] = useState(userList);
-  const [currentTotal, setCurrentTotal] = useState(0);
-  const [currentTotalVariations, setCurrentTotalVariations] = useState(0);
+  const [currentTotal, setCurrentTotal] = useState(1);
+  const [currentTotalVariations, setCurrentTotalVariations] = useState(1);
 
   const categories = [
     {
@@ -137,19 +137,8 @@ export default function Catalogue() {
   };
 
   useEffect(() => {
-    fetchItemTotals();
-  }, []);
-
-  const fetchItemTotals = async () => {
-    const endpoint = "http://localhost:4000/data/count";
-    try {
-      const req = await fetch(endpoint);
-      const res = await req.json();
-      dispatch(setItemTotals(res));
-    } catch (err) {
-      console.log(err);
-    }
-  };
+    dispatch(fetchItemTotals());
+  }, [dispatch]);
 
   const handleCategoryChange = (event) => {
     const select = event.target;
@@ -174,8 +163,8 @@ export default function Catalogue() {
       setDisplayedList(filteredList);
     }
 
-    setCurrentTotal(category.total);
-    setCurrentTotalVariations(category.total_v);
+    setCurrentTotal(category.total || 1);
+    setCurrentTotalVariations(category.total_v || 1);
   }, [selectedCategoryIndex, userList]);
 
   return (

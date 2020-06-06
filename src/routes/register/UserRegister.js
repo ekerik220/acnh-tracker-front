@@ -1,46 +1,30 @@
 import React, { useState, useRef } from "react";
 import styled from "styled-components";
 import { Form, Button, Alert } from "react-bootstrap";
+import { registerUser, resendConfirmationEmail } from "api/backend";
 
 export default function UserRegister() {
   const [email, setEmail] = useState("");
   const [user, setUser] = useState("");
   const [password, setPassword] = useState("");
   const [finished, setFinished] = useState(false);
-  const [errorVisible, setErrorVisible] = useState(false);
-  const [successVisible, setSuccessVisible] = useState(false);
+  const [error, setError] = useState(null);
+  const [success, setSuccess] = useState(null);
   const [loading, setLoading] = useState(false);
   const errorText = useRef();
-  const successText = useRef();
 
-  const submit = async (event) => {
+  const submit = (event) => {
     event.preventDefault();
+    setLoading(true);
+    registerUser(user, email, password).then((res) => {
+      if (res.error) setError(res.error);
+      else setFinished(true);
+    });
+  };
 
-    const endpoint = "http://localhost:4000/user/register";
-    const body = {
-      name: user,
-      email: email,
-      password: password,
-    };
-    const options = {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(body),
-    };
-
-    try {
-      setLoading(true);
-      const req = await fetch(endpoint, options);
-      const res = await req.json();
-      setLoading(false);
-      if (res.error) {
-        errorText.current.innerHTML = res.error;
-        setErrorVisible(true);
-      } else setFinished(true);
-    } catch (err) {
-      console.log(err);
-      return;
-    }
+  const closeAlert = () => {
+    setError(null);
+    setSuccess(null);
   };
 
   const handleInvalidInput = (event) => {
@@ -58,27 +42,15 @@ export default function UserRegister() {
     else ele.setCustomValidity("");
   };
 
-  const resendConfirmationEmail = async (event) => {
+  const handleResendConfirmationEmail = (event) => {
     // If the success alert is showing don't send any more confirmation emails
     // This prevents massively spamming the link and sending a ton of emails.
-    if (successVisible) return;
+    if (success) return;
 
-    const endpoint = "http://localhost:4000/user/resend/" + email;
-
-    try {
-      const req = await fetch(endpoint, { method: "POST" });
-      const res = await req.json();
-      if (res.error) {
-        errorText.current.innerHTML = res.error;
-        setErrorVisible(true);
-      } else {
-        successText.current.innerHTML = "Resent confirmation link!";
-        setSuccessVisible(true);
-      }
-    } catch (err) {
-      console.log(err);
-      return;
-    }
+    resendConfirmationEmail(email).then((res) => {
+      if (res.error) setError(res.error);
+      else setSuccess("Resent confirmation link!");
+    });
   };
 
   if (!finished)
@@ -86,11 +58,11 @@ export default function UserRegister() {
       <Wrapper>
         <Alert
           variant="danger"
-          onClose={() => setErrorVisible(false)}
+          onClose={closeAlert}
           dismissible
-          hidden={!errorVisible}
+          hidden={!error}
         >
-          <p className="alert-text" ref={errorText}></p>
+          <p className="alert-text">{error}</p>
         </Alert>
         <h3>Register new user</h3>
         <div>
@@ -148,19 +120,19 @@ export default function UserRegister() {
       <Wrapper>
         <Alert
           variant="danger"
-          onClose={() => setErrorVisible(false)}
+          onClose={closeAlert}
           dismissible
-          hidden={!errorVisible}
+          hidden={!error}
         >
           <p className="alert-text" ref={errorText}></p>
         </Alert>
         <Alert
           variant="success"
-          onClose={() => setSuccessVisible(false)}
+          onClose={closeAlert}
           dismissible
-          hidden={!successVisible}
+          hidden={!success}
         >
-          <p className="alert-text" ref={successText}></p>
+          <p className="alert-text">{success}</p>
         </Alert>
         <h3>Confirm email</h3>
         <div>
@@ -171,9 +143,9 @@ export default function UserRegister() {
           </p>
           <p>
             If you do not receive the email within a few minutes,{" "}
-            <a href="#" onClick={resendConfirmationEmail}>
+            <Link onClick={handleResendConfirmationEmail}>
               click here to resend
-            </a>{" "}
+            </Link>{" "}
             it.
           </p>
         </div>
@@ -206,4 +178,10 @@ const Wrapper = styled.div`
     padding: 30px;
     max-width: 500px;
   }
+`;
+
+const Link = styled.span`
+  cursor: pointer;
+  color: blue;
+  text-decoration: underline;
 `;

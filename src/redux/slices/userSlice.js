@@ -23,6 +23,9 @@ const userSlice = createSlice({
       state.error = null;
     },
     getUserFailed: (state, action) => {
+      state.name = null;
+      state.list = [];
+      state.wishlist = [];
       state.error = action.payload;
     },
     changeListSuccess: (state, action) => {
@@ -33,6 +36,9 @@ const userSlice = createSlice({
     changeListFailed: (state, action) => {
       state.error = action.payload;
     },
+    resetUserError: (state) => {
+      state.error = null;
+    },
   },
 });
 
@@ -41,14 +47,16 @@ export const {
   getUserFailed,
   changeListSuccess,
   changeListFailed,
+  resetUserError,
 } = userSlice.actions;
 
 export default userSlice.reducer;
 
-export const fetchUser = (token) => (dispatch) => {
-  return getUserInfo(token).then(
+export const fetchUser = (loginToken) => (dispatch) => {
+  return getUserInfo(loginToken).then(
     (userInfo) => {
-      if (userInfo.error) dispatch(getUserFailed(userInfo.error));
+      if (!userInfo) dispatch(getUserFailed(null));
+      else if (userInfo.error) dispatch(getUserFailed(userInfo.error));
       else dispatch(getUserSuccess(userInfo));
     },
     (err) => dispatch(getUserFailed(err.toString()))

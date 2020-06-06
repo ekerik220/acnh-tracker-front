@@ -25,12 +25,12 @@ const allReducers = combineReducers({
 
 export default allReducers;
 
-export { setAllData } from "./allDataSlice";
+export { fetchAllData, resetAllDataError } from "./allDataSlice";
 export { setErrorText } from "./errorTextSlice";
 export { setItemData } from "./itemDataSlice";
-export { setItemTotals } from "./itemTotalsSlice";
+export { fetchItemTotals } from "./itemTotalsSlice";
 export { setLoading } from "./loadingSlice";
-export { setLoginToken } from "./loginTokenSlice";
+export { login, logout, resetLoginError } from "./loginTokenSlice";
 export { setPopupData } from "./popupDataSlice";
 export { setSelectedItemType } from "./selectedItemTypeSlice";
 export { setSideNavOpen } from "./sideNavOpenSlice";
@@ -40,4 +40,5 @@ export {
   addItemToUserWishlist,
   removeItemFromUserList,
   removeItemFromUserWishlist,
+  resetUserError,
 } from "./userSlice";

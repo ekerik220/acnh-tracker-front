@@ -9,7 +9,7 @@ String.prototype.capitalize = function () {
 };
 
 export default function CatalogueItem({ item }) {
-  const allData = useSelector((state) => state.allData);
+  const allData = useSelector((state) => state.allData.list);
   const dispatch = useDispatch();
 
   const ownVariation = (variation) => {

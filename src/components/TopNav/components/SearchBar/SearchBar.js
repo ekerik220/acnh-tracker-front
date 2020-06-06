@@ -7,7 +7,7 @@ import { withRouter } from "react-router-dom";
 
 const SearchBar = (props) => {
   const [searchQuery, setSearchQuery] = useState("");
-  const allData = useSelector((state) => state.allData);
+  const allData = useSelector((state) => state.allData.list);
   const dispatch = useDispatch();
 
   const handleKeyPress = (event) => {

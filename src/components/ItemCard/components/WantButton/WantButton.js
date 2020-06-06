@@ -13,7 +13,7 @@ export default function WantButton({
   variationList,
   selected,
 }) {
-  const loginToken = useSelector((state) => state.loginToken);
+  const loginToken = useSelector((state) => state.loginToken.token);
   const [loading, setLoading] = useState(false);
   const dispatch = useDispatch();
 
@@ -24,14 +24,14 @@ export default function WantButton({
     variationList,
   };
 
-  const addToWishlist = async () => {
+  const addToWishlist = () => {
     setLoading(true);
     dispatch(addItemToUserWishlist(loginToken, item)).then(() =>
       setLoading(false)
     );
   };
 
-  const removeFromWishlist = async () => {
+  const removeFromWishlist = () => {
     setLoading(true);
     dispatch(removeItemFromUserWishlist(loginToken, item)).then(() =>
       setLoading(false)

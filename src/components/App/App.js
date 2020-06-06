@@ -6,17 +6,17 @@ import {
   setSideNavOpen,
   setErrorText,
   setSelectedItemType,
-  fetchUser
+  fetchUser,
+  fetchAllData,
 } from "redux/slices";
-import {setAllData} from 'redux/slices';
 import { withRouter } from "react-router-dom";
 import { Col, Row, Container, Collapse } from "react-bootstrap";
-import {TopNav, SideNav, ContentArea} from "components";
+import { TopNav, SideNav, ContentArea } from "components";
 
 const App = ({ history }) => {
   const dispatch = useDispatch();
   const sideNavOpen = useSelector((state) => state.sideNavOpen);
-  const loginToken = useSelector((state) => state.loginToken);
+  const loginToken = useSelector((state) => state.loginToken.token);
 
   useEffect(() => {
     let lastWindowSize = window.innerWidth;
@@ -48,18 +48,7 @@ const App = ({ history }) => {
 
   // Grab item data from server
   useEffect(() => {
-    const getItemList = async () => {
-      const endpoint = "http://localhost:4000/data/list";
-      try {
-        const req = await fetch(endpoint);
-        const res = await req.json();
-        dispatch(setAllData(res));
-      } catch (err) {
-        console.log(err);
-      }
-    };
-
-    getItemList();
+    dispatch(fetchAllData());
   }, [dispatch]);
 
   const clickedOutsideSideMenu = (action) => {
@@ -141,7 +130,6 @@ const BottomArea = styled(Container)`
   height: calc(100% - 70px);
   position: relative;
 `;
-
 
 const FadedOverlay = styled.div`
   background-color: black;

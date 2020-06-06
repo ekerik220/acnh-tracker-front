@@ -1,45 +1,38 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import styled from "styled-components";
+import { confirmEmail } from "api/backend";
 
 export default function ConfirmEmail() {
   const [loading, setLoading] = useState(false);
+  const [error, setError] = useState(null);
+  const [confirmed, setConfirmed] = useState(false);
   const { userKey } = useParams();
-  const message = useRef();
 
   useEffect(() => {
-    async function confirmEmail() {
-      const endpoint = "http://localhost:4000/user/confirm/" + userKey;
-
-      try {
-        setLoading(true);
-        const req = await fetch(endpoint, { method: "POST" });
-        const res = await req.json();
-        setLoading(false);
-
-        if (res.error) {
-          message.current.classList.add("error");
-          message.current.innerHTML = res.error;
-          console.log(res.error);
-        } else {
-          message.current.innerHTML =
-            'Email confirmed! Please <a href="/login">login</a>.';
-        }
-      } catch (err) {
-        console.log(err);
-        return;
-      }
-    }
-    confirmEmail();
+    setLoading(true);
+    confirmEmail(userKey).then((res) => {
+      setLoading(false);
+      if (res.error) setError(res.error);
+      else setConfirmed(true);
+    });
   }, [userKey]);
 
   return (
     <Wrapper>
       <h3>Confirm email</h3>
       <div>
-        <span ref={message}>
-          {loading && <i className="fas fa-cog fa-spin"></i>}
-        </span>
+        {loading ? (
+          <span>
+            <i className="fas fa-cog fa-spin"></i>
+          </span>
+        ) : confirmed ? (
+          <span>
+            Email confirmed! Please <a href="/login">login</a>
+          </span>
+        ) : error ? (
+          <span className="error">{error}</span>
+        ) : null}
       </div>
     </Wrapper>
   );
