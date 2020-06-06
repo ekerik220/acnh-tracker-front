@@ -8,7 +8,7 @@ import { ItemCard } from "components/ItemCard";
 
 export default function Catalogue() {
   const dispatch = useDispatch();
-  const itemTotals = useSelector((state) => state.itemTotals);
+  const itemTotals = useSelector((state) => state.itemTotals.totals);
   const userList = useSelector((state) => state.user.list);
   const popupData = useSelector((state) => state.popupData);
   const [selectedCategoryIndex, setSelectedCategoryIndex] = useState(0);
@@ -156,7 +156,7 @@ export default function Catalogue() {
 
   useEffect(() => {
     const category = categories[selectedCategoryIndex];
-
+    console.log(category);
     if (category.type === "all") {
       setDisplayedList(userList);
     } else {
