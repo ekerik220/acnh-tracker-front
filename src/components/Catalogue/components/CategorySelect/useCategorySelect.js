@@ -121,11 +121,8 @@ export default function useCategorySelect() {
   // array that stores all the information about each category so we need some
   // logic to match them up.
   const handleCategoryChange = (event) => {
-    const select = event.target;
-    const selectedIndex = select.selectedIndex;
-    const options = select.querySelectorAll("option");
-    const name = options[selectedIndex].innerHTML;
-    const category = categories.find((category) => category.name === name);
+    const value = event.target.value;
+    const category = categories.find((category) => category.name === value);
     dispatch(setCategory(category));
   };
 
