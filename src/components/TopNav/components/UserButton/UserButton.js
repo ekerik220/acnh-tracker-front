@@ -26,7 +26,7 @@ export default function UserButton() {
           <Dropdown.Item disabled>{userName}</Dropdown.Item>
           <Dropdown.Item href="/catalogue">Catalogue</Dropdown.Item>
           <Dropdown.Item href="/wishlist">Wishlist</Dropdown.Item>
-          <Dropdown.Item href="/compare">Compare Catalogues</Dropdown.Item>
+          <Dropdown.Item href="/compare">Compare catalogues</Dropdown.Item>
           <Dropdown.Item onSelect={handleLogout}>Logout</Dropdown.Item>
         </Dropdown.Menu>
       ) : (
