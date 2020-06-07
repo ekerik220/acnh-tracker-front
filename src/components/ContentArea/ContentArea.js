@@ -11,6 +11,7 @@ import {
   Login,
   Catalogue,
   ConfirmEmail,
+  Compare,
 } from "components";
 
 function ContentArea() {
@@ -41,6 +42,9 @@ function ContentArea() {
         <Route path="/confirm/:userKey" children={<ConfirmEmail />} />
         <Route path="/catalogue">
           <Catalogue />
+        </Route>
+        <Route path="/compare">
+          <Compare />
         </Route>
       </Switch>
     </StyledContainer>
