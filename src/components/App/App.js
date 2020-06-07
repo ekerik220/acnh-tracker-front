@@ -8,6 +8,7 @@ import {
   setSelectedItemType,
   fetchUser,
   fetchAllData,
+  setPopupData,
 } from "redux/slices";
 import { withRouter } from "react-router-dom";
 import { Col, Row, Container, Collapse } from "react-bootstrap";
@@ -17,6 +18,7 @@ const App = ({ history }) => {
   const dispatch = useDispatch();
   const sideNavOpen = useSelector((state) => state.sideNavOpen);
   const loginToken = useSelector((state) => state.loginToken.token);
+  const popupData = useSelector((state) => state.popupData);
 
   useEffect(() => {
     let lastWindowSize = window.innerWidth;
@@ -55,8 +57,13 @@ const App = ({ history }) => {
     if (action.target.id === "side-nav-col") dispatch(setSideNavOpen(false));
   };
 
+  const hideBackgroundBlackout = () => {
+    dispatch(setPopupData(null));
+  };
+
   return (
     <React.Fragment>
+      {popupData && <BackgroundBlackout onClick={hideBackgroundBlackout} />}
       <TopNav />
       <BottomArea fluid onClick={clickedOutsideSideMenu}>
         {sideNavOpen && <FadedOverlay />}
@@ -138,6 +145,17 @@ const FadedOverlay = styled.div`
   height: 100%;
   width: 100%;
   z-index: 1;
+`;
+
+const BackgroundBlackout = styled.div`
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 100%;
+  background: black;
+  opacity: 0.3;
+  z-index: 3;
 `;
 
 export default withRouter(App);

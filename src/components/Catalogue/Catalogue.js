@@ -94,6 +94,7 @@ const Wrapper = styled.div`
     top: 50%;
     transform: translate(-50%, -50%);
     background: white;
+    z-index: 4;
   }
 
   @media (max-width: 550px) {
