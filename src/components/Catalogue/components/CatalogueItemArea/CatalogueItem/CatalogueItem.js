@@ -59,6 +59,7 @@ const Wrapper = styled.div`
   border-bottom: 1px solid black;
   cursor: pointer;
   transition: background-color 0.1s;
+  padding: 3px;
 
   &:hover {
     background: rgba(0, 0, 0, 0.1);
