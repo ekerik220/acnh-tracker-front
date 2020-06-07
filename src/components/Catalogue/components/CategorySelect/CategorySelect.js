@@ -5,29 +5,29 @@ export default function CategorySelect() {
   const { handleCategoryChange } = useCategorySelect();
   return (
     <select onChange={handleCategoryChange}>
-      <option value="All">All</option>
+      <option value="all">All</option>
       <optgroup label="Furniture">
-        <option value="Housewares">Housewares</option>
-        <option value="Misc.">Misc.</option>
-        <option value="Wall-mounted">Wall-mounted</option>
+        <option value="housewares">Housewares</option>
+        <option value="misc">Misc.</option>
+        <option value="wallmounted">Wall-mounted</option>
       </optgroup>
       <optgroup label="Clothing">
-        <option value="Tops">Tops</option>
-        <option value="Bottoms">Bottoms</option>
-        <option value="Dress-up">Dress-up</option>
-        <option value="Headwear">Headwear</option>
-        <option value="Accessories">Accessories</option>
-        <option value="Socks">Socks</option>
-        <option value="Shoes">Shoes</option>
-        <option value="Bags">Bags</option>
-        <option value="Umbrellas">Umbrellas</option>
+        <option value="tops">Tops</option>
+        <option value="bottoms">Bottoms</option>
+        <option value="dressup">Dress-up</option>
+        <option value="headwear">Headwear</option>
+        <option value="accessories">Accessories</option>
+        <option value="socks">Socks</option>
+        <option value="shoes">Shoes</option>
+        <option value="bags">Bags</option>
+        <option value="umbrellas">Umbrellas</option>
       </optgroup>
       <optgroup label="Other">
-        <option value="Wallpaper">Wallpaper</option>
-        <option value="Flooring">Flooring</option>
-        <option value="Rugs">Rugs</option>
-        <option value="Fossils">Fossils</option>
-        <option value="Music">Music</option>
+        <option value="wallpaper">Wallpaper</option>
+        <option value="flooring">Flooring</option>
+        <option value="rugs">Rugs</option>
+        <option value="fossils">Fossils</option>
+        <option value="music">Music</option>
       </optgroup>
     </select>
   );

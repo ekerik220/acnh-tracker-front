@@ -15,6 +15,7 @@ export default function Catalogue() {
   const userList = useSelector((state) => state.user.list);
   const popupData = useSelector((state) => state.popupData);
   const category = useSelector((state) => state.catalogue.category);
+  const itemTotals = useSelector((state) => state.itemTotals.totals);
 
   const [displayedList, setDisplayedList] = useState(userList);
   const [currentTotal, setCurrentTotal] = useState(1);
@@ -34,16 +35,16 @@ export default function Catalogue() {
   }, [dispatch]);
 
   useEffect(() => {
-    if (category.type === "all") {
+    if (category === "all") {
       setDisplayedList(userList);
     } else {
       const filteredList = userList.filter(
-        (item) => item.category === category.type
+        (item) => item.category === category
       );
       setDisplayedList(filteredList);
     }
-    setCurrentTotal(category.total || 1);
-    setCurrentTotalVariations(category.total_v || 1);
+    setCurrentTotal(itemTotals[category] || 1);
+    setCurrentTotalVariations(itemTotals[category + "_v"] || 1);
   }, [category, userList]);
 
   return (
