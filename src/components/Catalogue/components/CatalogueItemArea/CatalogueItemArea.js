@@ -1,12 +1,12 @@
 import React from "react";
 import styled from "styled-components";
-import {CatalogueItem} from "./CatalogueItem";
+import { CatalogueItem } from "./CatalogueItem";
 
 export default function CatalogueItemArea({ displayedList }) {
   return (
     <Wrapper>
-      {displayedList.map((item) => (
-        <CatalogueItem item={item} />
+      {displayedList.map((item, index) => (
+        <CatalogueItem key={index} item={item} />
       ))}
     </Wrapper>
   );
