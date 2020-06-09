@@ -33,6 +33,12 @@ export const getItemTotals = async () => {
   return res.json();
 };
 
+export const searchUser = async (userName) => {
+  const endpoint = "http://localhost:4000/list/" + userName;
+  const res = await fetch(endpoint);
+  return res.json();
+};
+
 /*
  * User state related API
  */
