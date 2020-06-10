@@ -12,3 +12,5 @@ export { ItemBox } from "./ItemBox";
 export { Login } from "./Login";
 export { UserRegister } from "./UserRegister";
 export { Compare } from "./Compare";
+export { PasswordReset } from "./PasswordReset";
+export { ForgotPassword } from "./ForgotPassword";

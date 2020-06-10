@@ -18,6 +18,29 @@ export const handleLogin = async (email, password) => {
 };
 
 /*
+ * Forgot password
+ */
+
+export const forgotPassword = async (email) => {
+  console.log(email);
+  const endpoint = "http://localhost:4000/user/forgotpassword/" + email;
+  const res = await fetch(endpoint, { method: "POST" });
+  return res.json();
+};
+
+export const changePassword = async (token, newPassword) => {
+  const endpoint = "http://localhost:4000/user/changepassword/" + token;
+  const body = { newPassword };
+  const options = {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(body),
+  };
+  const res = await fetch(endpoint, options);
+  return res.json();
+};
+
+/*
  * Data fetching
  */
 

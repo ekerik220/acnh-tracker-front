@@ -63,7 +63,7 @@ const Login = (props) => {
           </Button>
         </Form>
       </div>
-      <span>I forgot my password.</span>
+      <a href="/forgotpassword">I forgot my password.</a>
     </Wrapper>
   );
 };

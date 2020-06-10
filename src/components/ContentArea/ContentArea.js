@@ -12,6 +12,8 @@ import {
   Catalogue,
   ConfirmEmail,
   Compare,
+  PasswordReset,
+  ForgotPassword,
 } from "components";
 
 function ContentArea() {
@@ -45,6 +47,10 @@ function ContentArea() {
         </Route>
         <Route path="/compare">
           <Compare />
+        </Route>
+        <Route path="/passwordreset/:token" children={<PasswordReset />} />
+        <Route path="/forgotpassword">
+          <ForgotPassword />
         </Route>
       </Switch>
     </StyledContainer>
