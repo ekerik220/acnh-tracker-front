@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { InputGroup, Button } from "react-bootstrap";
 import styled from "styled-components";
 import { useDispatch, useSelector } from "react-redux";
@@ -6,7 +6,8 @@ import { setItemData, setSelectedItemType } from "redux/slices";
 import { withRouter } from "react-router-dom";
 
 const SearchBar = (props) => {
-  const [searchQuery, setSearchQuery] = useState("");
+  const [searchInput, setSearchInput] = useState("");
+  const [searchData, setSearchData] = useState("");
   const allData = useSelector((state) => state.allData.list);
   const dispatch = useDispatch();
 
@@ -15,23 +16,26 @@ const SearchBar = (props) => {
   };
 
   const search = () => {
-    if (searchQuery.length < 2) return;
+    if (searchInput.length < 2) return;
     props.history.push("/items");
+    const searchItems = allData.filter((item) =>
+      item.name.toLowerCase().includes(searchInput.toLowerCase())
+    );
     dispatch(setSelectedItemType(null));
     dispatch(setItemData([]));
-    const searchItems = allData.filter((item) =>
-      item.name.toLowerCase().includes(searchQuery.toLowerCase())
-    );
-    dispatch(setItemData([]));
-    dispatch(setItemData(searchItems));
+    setSearchData(searchItems);
   };
+
+  useEffect(() => {
+    dispatch(setItemData(searchData));
+  }, [dispatch, searchData]);
 
   return (
     <Wrapper>
       <SearchInput
-        value={searchQuery}
+        value={searchInput}
         placeholder="Search"
-        onChange={(e) => setSearchQuery(e.target.value)}
+        onChange={(e) => setSearchInput(e.target.value)}
         onKeyPress={handleKeyPress}
       />
       <InputGroup.Append>

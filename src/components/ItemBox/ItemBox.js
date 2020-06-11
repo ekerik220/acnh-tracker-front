@@ -34,6 +34,7 @@ export default function ItemBox({}) {
   const changePage = (current) => {
     scroll.scrollToTop({ containerId: "content-area", duration: 500 });
     setPage(current);
+    setLoadedData([]);
   };
 
   const formatTitle = (title) => {
