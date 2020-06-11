@@ -49,14 +49,15 @@ const TagBox = styled.div`
   background: grey;
   height: 25px;
   transition: background-color 0.5s;
-  display: grid;
+  display: flex;
+  justify-content: end;
   align-items: center;
 
   i {
     justify-self: end;
     cursor: pointer;
     color: white;
-    margin-right: 3px;
+    margin-right: 5px;
   }
 
   i:hover {
