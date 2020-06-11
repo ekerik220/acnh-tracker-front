@@ -2,6 +2,7 @@ import React, { useEffect, useState, useRef, useCallback } from "react";
 import { useSelector } from "react-redux";
 import styled from "styled-components";
 import { HaveButton, WantButton } from "../";
+import capitalize from "utils/capitalize";
 
 function FrontSide({ itemData, owned, wanted, setOwned, setWanted }) {
   const variationsArea = useRef();
@@ -158,7 +159,7 @@ function FrontSide({ itemData, owned, wanted, setOwned, setWanted }) {
         ></i>
       </PictureBox>
       <NameBox>
-        <h6>{itemData.name.capitalize()}</h6>
+        <h6>{capitalize(itemData.name)}</h6>
         <span>
           {variants.length > 1
             ? "(" + variants[selectedVariationIndex].name + ")"

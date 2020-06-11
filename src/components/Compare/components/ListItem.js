@@ -3,11 +3,7 @@ import styled from "styled-components";
 import { Badge, OverlayTrigger, Tooltip } from "react-bootstrap";
 import { useSelector, useDispatch } from "react-redux";
 import { setPopupData } from "redux/slices";
-
-String.prototype.capitalize = function () {
-  return this.charAt(0).toUpperCase() + this.slice(1);
-};
-
+import capitalize from "utils/capitalize";
 export default function ListItem({ item, wishlistVariations }) {
   const allData = useSelector((state) => state.allData.list);
   const dispatch = useDispatch();
@@ -28,7 +24,7 @@ export default function ListItem({ item, wishlistVariations }) {
 
   return (
     <Wrapper onClick={showItemPopup}>
-      <span>{item.item_name.capitalize()}</span>
+      <span>{capitalize(item.item_name)}</span>
       <div className="variations-badge">
         {item.variations.length > 0 && (
           <OverlayTrigger
