@@ -148,13 +148,11 @@ function FrontSide({ itemData, owned, wanted, setOwned, setWanted }) {
 
     // Scroll variant list if selected variant is out of view
     if (!usingVariationSlider) {
-      const visibleAreaStart = 0 - variationAreaTransform;
-      const visbileAreaEnd =
-        variationsArea.current.offsetWidth + variationAreaTransform;
-      const selectedVariationEnd =
-        (selectedVariationIndex + 1) * selectedVariation.offsetWidth;
-      if (selectedVariationEnd < visibleAreaStart) slideVariationsLeft();
-      if (selectedVariationEnd > visbileAreaEnd) slideVariationsRight();
+      // variationAreaTransform moves the box by 32px each time, so dividing the transform by 32 gets the index
+      const visibleAreaStartIndex = Math.abs(variationAreaTransform) / 32;
+      const visbileAreaEndIndex = visibleAreaStartIndex + 6; // 7 items are shown at once, so [0,6] for example
+      if (selectedVariationIndex < visibleAreaStartIndex) slideVariationsLeft();
+      if (selectedVariationIndex > visbileAreaEndIndex) slideVariationsRight();
     }
 
     // Update enabled state of big select arrows
