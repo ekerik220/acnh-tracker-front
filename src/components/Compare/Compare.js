@@ -28,6 +28,8 @@ export default function Compare() {
   const fetchUser = () => {
     if (searchField.length < 2) return;
     setError(null);
+    setItemsYouNeed([]);
+    setItemsTheyNeed([]);
     searchUser(searchField).then((res) => {
       if (res.error) setError(res.error);
       else setFetchedUser(res);
