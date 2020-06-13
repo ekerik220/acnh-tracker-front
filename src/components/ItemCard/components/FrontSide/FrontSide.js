@@ -14,6 +14,7 @@ function FrontSide({ itemData, owned, wanted, setOwned, setWanted }) {
   const [variationAreaTransform, setVariationAreaTransform] = useState(0);
   const [selectedVariationIndex, setSelectedVariationIndex] = useState(0);
   const [usingVariationSlider, setUsingVariationSlider] = useState(false);
+  const [ownedWantedVariations, setOwnedWantedVariations] = useState({});
 
   const userList = useSelector((state) => state.user.list);
   const userWishlist = useSelector((state) => state.user.wishlist);
@@ -28,6 +29,32 @@ function FrontSide({ itemData, owned, wanted, setOwned, setWanted }) {
           item.item_name === itemName && item.variations.includes(variation)
       );
     else return list.some((item) => item.item_name === itemName);
+  };
+
+  const variationOwned = (variation) => {
+    return isInList(userList, itemData.name, variation);
+  };
+
+  const variationWishlisted = (variation) => {
+    return isInList(userWishlist, itemData.name, variation);
+  };
+
+  const createOwnedWantedVariationMapping = (
+    itemName,
+    ownedList,
+    wantedList
+  ) => {
+    const mapping = {};
+
+    const ownedItem = ownedList.find((item) => item.item_name === itemName);
+    if (ownedItem)
+      ownedItem.variations.forEach((variant) => (mapping[variant] = "owned"));
+
+    const wantedItem = wantedList.find((item) => item.item_name === itemName);
+    if (wantedItem)
+      wantedItem.variations.forEach((variant) => (mapping[variant] = "wanted"));
+
+    return mapping;
   };
 
   const handleVariationSliderLeft = () => {
@@ -74,6 +101,14 @@ function FrontSide({ itemData, owned, wanted, setOwned, setWanted }) {
     isInList(userWishlist, itemData.name, variants[selectedVariationIndex].name)
       ? setWanted(true)
       : setWanted(false);
+
+    const mapping = createOwnedWantedVariationMapping(
+      itemData.name,
+      userList,
+      userWishlist
+    );
+
+    setOwnedWantedVariations(mapping);
   }, [
     userList,
     userWishlist,
@@ -177,8 +212,15 @@ function FrontSide({ itemData, owned, wanted, setOwned, setWanted }) {
           <div ref={variationsArea}>
             {variants.length > 1
               ? variants.map((variant, index) => (
-                  <img
+                  <VariantImage
                     key={index}
+                    border={
+                      ownedWantedVariations[variant.name] === "owned"
+                        ? "3px solid #2ecc40"
+                        : ownedWantedVariations[variant.name] === "wanted"
+                        ? "3px solid #0074d9"
+                        : "1px solid grey"
+                    }
                     src={img_url_prefix + variant.img + ".png"}
                     onClick={() => setSelectedVariationIndex(index)}
                     alt=""
@@ -257,24 +299,6 @@ const VariantBox = styled.div`
     transition: transform 0.2s;
   }
 
-  img {
-    width: 30px;
-    flex-shrink: 0;
-    border: 2px solid grey;
-    border-radius: 4px;
-    margin: 1px;
-    cursor: pointer;
-  }
-
-  img:hover:not(.selected) {
-    background: rgba(0, 0, 0, 0.2);
-    transition: background-color 0.2s;
-  }
-
-  .selected {
-    background: rgba(0, 0, 0, 0.4);
-  }
-
   i {
     color: grey;
     transition: font-size 0.2s;
@@ -304,4 +328,22 @@ const NameBox = styled.div`
 const WantHaveBox = styled.div`
   display: flex;
   padding: 0 5px;
+`;
+
+const VariantImage = styled.img`
+  width: 30px;
+  flex-shrink: 0;
+  border: ${(props) => props.border || "2px solid grey"};
+  border-radius: 4px;
+  margin: 1px;
+  cursor: pointer;
+
+  &:hover:not(.selected) {
+    background: rgba(0, 0, 0, 0.2);
+    transition: background-color 0.2s;
+  }
+
+  &.selected {
+    background: rgba(0, 0, 0, 0.4);
+  }
 `;
