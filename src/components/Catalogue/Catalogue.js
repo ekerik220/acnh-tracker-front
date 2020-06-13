@@ -58,7 +58,7 @@ export default function Catalogue() {
     }
     setCurrentTotal(itemTotals[category] || 1);
     setCurrentTotalVariations(itemTotals[category + "_v"] || 1);
-  }, [category, userList]);
+  }, [category, itemTotals, userList]);
 
   return (
     <Wrapper>

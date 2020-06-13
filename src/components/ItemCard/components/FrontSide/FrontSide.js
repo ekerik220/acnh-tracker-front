@@ -32,14 +32,6 @@ function FrontSide({ itemData, owned, wanted, setOwned, setWanted }) {
     else return list.some((item) => item.item_name === itemName);
   };
 
-  const variationOwned = (variation) => {
-    return isInList(userList, itemData.name, variation);
-  };
-
-  const variationWishlisted = (variation) => {
-    return isInList(userWishlist, itemData.name, variation);
-  };
-
   const createOwnedWantedVariationMapping = (
     itemName,
     ownedList,

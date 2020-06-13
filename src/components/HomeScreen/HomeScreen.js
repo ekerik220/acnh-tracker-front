@@ -13,7 +13,11 @@ export default function HomeScreen() {
         </div>
       </CenterImage>
       <FooterTextArea>
-        <a target="_blank" href="https://tinyurl.com/acnh-sheet">
+        <a
+          target="_blank"
+          rel="noopener noreferrer"
+          href="https://tinyurl.com/acnh-sheet"
+        >
           Data source
         </a>
       </FooterTextArea>

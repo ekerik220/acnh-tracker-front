@@ -1,7 +1,7 @@
 import useCategorySelect from "./useCategorySelect";
 import CategorySelect from "./CategorySelect";
 import React from "react";
-import { render, fireEvent, screen } from "@testing-library/react";
+import { render, fireEvent } from "@testing-library/react";
 
 const handeCategoryChangeMock = jest.fn();
 

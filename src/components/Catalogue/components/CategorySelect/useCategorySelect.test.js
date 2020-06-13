@@ -14,7 +14,7 @@ describe("useCategorySelect", () => {
 
   describe("useEffect[dispatch]", () => {
     it("should dispatch setCategory('all') to store", () => {
-      const { result } = renderHook(() => useCategorySelect());
+      renderHook(() => useCategorySelect());
       expect(mockDispatch).toHaveBeenCalledWith(setCategory("all"));
     });
   });

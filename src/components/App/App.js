@@ -4,7 +4,6 @@ import styled from "styled-components";
 import { useSelector, useDispatch } from "react-redux";
 import {
   setSideNavOpen,
-  setErrorText,
   setSelectedItemType,
   fetchUser,
   fetchAllData,

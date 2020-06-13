@@ -9,7 +9,7 @@ import { animateScroll as scroll } from "react-scroll";
 
 const ITEMS_PER_PAGE = 24;
 
-export default function ItemBox({}) {
+export default function ItemBox() {
   const itemData = useSelector((state) => state.itemData);
   const selectedItemType = useSelector((state) => state.selectedItemType);
   const allData = useSelector((state) => state.allData.list);
@@ -29,7 +29,7 @@ export default function ItemBox({}) {
     const endIndex = page * ITEMS_PER_PAGE;
     const itemsToLoad = itemData.slice(startIndex, endIndex);
     setLoadedData(itemsToLoad);
-  }, [page]);
+  }, [itemData, page]);
 
   const changePage = (current) => {
     scroll.scrollToTop({ containerId: "content-area", duration: 500 });
