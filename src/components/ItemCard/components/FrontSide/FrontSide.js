@@ -3,6 +3,7 @@ import { useSelector } from "react-redux";
 import styled from "styled-components";
 import { HaveButton, WantButton } from "../";
 import capitalize from "utils/capitalize";
+import GracefulImage from "react-graceful-image";
 
 function FrontSide({ itemData, owned, wanted, setOwned, setWanted }) {
   const variationsArea = useRef();
@@ -180,9 +181,11 @@ function FrontSide({ itemData, owned, wanted, setOwned, setWanted }) {
           ref={variationLeftArrow}
           hidden={variants.length > 1 ? false : true}
         ></i>
-        <img
+        <GracefulImage
           src={img_url_prefix + variants[selectedVariationIndex].img + ".png"}
           alt=""
+          placeholderColor="white"
+          noLazyLoad
         />
         <i
           className="fas fa-arrow-circle-right"
