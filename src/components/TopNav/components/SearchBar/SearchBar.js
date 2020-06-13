@@ -22,6 +22,7 @@ export default function SearchBar(props) {
     const searchItems = allData.filter((item) =>
       item.name.toLowerCase().includes(searchInput.toLowerCase())
     );
+    setSearchInput("");
     dispatch(setSelectedItemType(null));
     dispatch(setItemData([]));
     setSearchData(searchItems);
