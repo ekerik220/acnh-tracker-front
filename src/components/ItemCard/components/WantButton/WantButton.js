@@ -5,6 +5,7 @@ import {
   removeItemFromUserWishlist,
 } from "redux/slices";
 import { useSelector, useDispatch } from "react-redux";
+import { OverlayTrigger, Tooltip } from "react-bootstrap";
 
 export default function WantButton({
   itemName,
@@ -39,12 +40,17 @@ export default function WantButton({
   };
 
   return (
-    <Button
-      className={loading ? "loading" : selected ? "selected" : null}
-      onClick={loading ? null : selected ? removeFromWishlist : addToWishlist}
+    <OverlayTrigger
+      placement="bottom"
+      overlay={!loginToken ? <Tooltip>Must be logged in</Tooltip> : <div></div>}
     >
-      {loading ? <i class="fas fa-spinner fa-spin"></i> : "Want"}
-    </Button>
+      <Button
+        className={loading ? "loading" : selected ? "selected" : null}
+        onClick={loading ? null : selected ? removeFromWishlist : addToWishlist}
+      >
+        {loading ? <i class="fas fa-spinner fa-spin"></i> : "Want"}
+      </Button>
+    </OverlayTrigger>
   );
 }
 

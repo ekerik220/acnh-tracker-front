@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import styled from "styled-components";
 import { addItemToUserList, removeItemFromUserList } from "redux/slices";
 import { useSelector, useDispatch } from "react-redux";
+import { OverlayTrigger, Tooltip } from "react-bootstrap";
 
 export default function HaveButton({
   itemName,
@@ -34,12 +35,17 @@ export default function HaveButton({
   };
 
   return (
-    <Button
-      className={loading ? "loading" : selected ? "selected" : null}
-      onClick={loading ? null : selected ? removeFromList : addToList}
+    <OverlayTrigger
+      placement="bottom"
+      overlay={!loginToken ? <Tooltip>Must be logged in</Tooltip> : <div></div>}
     >
-      {loading ? <i class="fas fa-spinner fa-spin"></i> : "Have"}
-    </Button>
+      <Button
+        className={loading ? "loading" : selected ? "selected" : null}
+        onClick={loading ? null : selected ? removeFromList : addToList}
+      >
+        {loading ? <i class="fas fa-spinner fa-spin"></i> : "Have"}
+      </Button>
+    </OverlayTrigger>
   );
 }
 
