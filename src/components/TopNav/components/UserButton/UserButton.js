@@ -2,14 +2,17 @@ import React from "react";
 import { Dropdown } from "react-bootstrap";
 import styled from "styled-components";
 import { useSelector, useDispatch } from "react-redux";
+import { useHistory } from "react-router-dom";
 import { logout } from "redux/slices";
 
 export default function UserButton() {
   const userName = useSelector((state) => state.user.name);
   const loginToken = useSelector((state) => state.loginToken.token);
+  const routerHistory = useHistory();
   const dispatch = useDispatch();
 
   const handleLogout = () => {
+    routerHistory.push("/");
     dispatch(logout());
   };
 
