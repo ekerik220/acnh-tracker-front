@@ -1,11 +1,11 @@
-import { createSlice } from '@reduxjs/toolkit'
+import { createSlice } from "@reduxjs/toolkit";
 
 const itemDataSlice = createSlice({
-    name: 'itemData',
-    initialState: null,
-    reducers: {
-        setItemData: (state, action) => action.payload,
-    }
+  name: "itemData",
+  initialState: null,
+  reducers: {
+    setItemData: (state, action) => action.payload,
+  },
 });
 
 export const { setItemData } = itemDataSlice.actions;

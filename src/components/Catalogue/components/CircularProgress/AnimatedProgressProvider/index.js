@@ -1,1 +1,1 @@
-export {default as AnimatedProgressProvider} from './AnimatedProgressProvider';
+export { default as AnimatedProgressProvider } from "./AnimatedProgressProvider";

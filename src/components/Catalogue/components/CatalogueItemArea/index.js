@@ -1,1 +1,1 @@
-export { default as CatalogueItemArea } from './CatalogueItemArea.js';
+export { default as CatalogueItemArea } from "./CatalogueItemArea.js";

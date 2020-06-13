@@ -1,11 +1,11 @@
-import { createSlice } from '@reduxjs/toolkit'
+import { createSlice } from "@reduxjs/toolkit";
 
 const selectedItemTypeSlice = createSlice({
-    name: 'selectedItemType',
-    initialState: null,
-    reducers: {
-        setSelectedItemType: (state, action) => action.payload,
-    }
+  name: "selectedItemType",
+  initialState: null,
+  reducers: {
+    setSelectedItemType: (state, action) => action.payload,
+  },
 });
 
 export const { setSelectedItemType } = selectedItemTypeSlice.actions;

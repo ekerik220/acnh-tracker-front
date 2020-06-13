@@ -3,13 +3,13 @@ import ReactDOM from "react-dom";
 import App from "./components/App/App";
 import * as serviceWorker from "./serviceWorker";
 import { configureStore, combineReducers } from "@reduxjs/toolkit";
-import reduxThunk from 'redux-thunk';
+import reduxThunk from "redux-thunk";
 import { Provider } from "react-redux";
 import { persistStore, persistReducer } from "redux-persist";
 import { PersistGate } from "redux-persist/integration/react";
 import storage from "redux-persist/lib/storage";
 import { BrowserRouter as Router } from "react-router-dom";
-import allReducers from './redux/slices/';
+import allReducers from "./redux/slices/";
 
 const persistConfig = {
   key: "root",
@@ -19,7 +19,7 @@ const persistConfig = {
 const persistedReducer = persistReducer(persistConfig, allReducers);
 const store = configureStore({
   reducer: persistedReducer,
-  middleware: [reduxThunk]
+  middleware: [reduxThunk],
 });
 const persistor = persistStore(store);
 
