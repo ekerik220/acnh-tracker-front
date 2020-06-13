@@ -3,12 +3,13 @@ import styled from "styled-components";
 import { Accordion, Card } from "react-bootstrap";
 import { setSideNavOpen, setItemData, setSelectedItemType } from "redux/slices";
 import { useDispatch, useSelector } from "react-redux";
-import { withRouter } from "react-router-dom";
+import { useHistory } from "react-router-dom";
 
-const SideNav = (props) => {
+export default function SideNav(props) {
   const dispatch = useDispatch();
   const sideNavRef = useRef();
   const linkList = useRef();
+  const routerHistory = useHistory();
   const [activeCategory, setActiveCategory] = useState();
   const selectedItemType = useSelector((state) => state.selectedItemType);
   const allData = useSelector((state) => state.allData.list);
@@ -56,7 +57,7 @@ const SideNav = (props) => {
   };
 
   const handleSelection = (dataType) => {
-    props.history.push("/items");
+    routerHistory.push("/items");
     dispatch(setSideNavOpen(false));
     dispatch(setSelectedItemType(dataType));
     dispatch(setItemData([]));
@@ -115,7 +116,7 @@ const SideNav = (props) => {
       </Navigation>
     </NavContainer>
   );
-};
+}
 
 // Styles
 const NavContainer = styled.div`
@@ -174,5 +175,3 @@ const NavLinkList = styled.ul`
     pointer-events: none;
   }
 `;
-
-export default withRouter(SideNav);

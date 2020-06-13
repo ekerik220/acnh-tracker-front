@@ -1,15 +1,16 @@
 import React, { useState, useRef, useEffect } from "react";
 import styled from "styled-components";
 import { Form, Button, Alert } from "react-bootstrap";
-import { withRouter } from "react-router-dom";
+import { useHistory } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { login, resetLoginError } from "redux/slices";
 
-const Login = (props) => {
+export default function Login(props) {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [loading, setLoading] = useState(false);
   const dispatch = useDispatch();
+  const routerHistory = useHistory();
   const error = useSelector((state) => state.loginToken.error);
   const token = useSelector((state) => state.loginToken.token);
 
@@ -26,7 +27,7 @@ const Login = (props) => {
   const handlePasswordInputChange = (event) => setPassword(event.target.value);
 
   useEffect(() => {
-    if (token) props.history.push("/");
+    if (token) routerHistory.push("/");
   });
 
   return (
@@ -66,7 +67,7 @@ const Login = (props) => {
       <a href="/forgotpassword">I forgot my password.</a>
     </Wrapper>
   );
-};
+}
 
 const Wrapper = styled.div`
   display: flex;
@@ -94,5 +95,3 @@ const Wrapper = styled.div`
     max-width: 500px;
   }
 `;
-
-export default withRouter(Login);

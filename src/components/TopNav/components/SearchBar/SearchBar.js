@@ -3,12 +3,13 @@ import { InputGroup, Button } from "react-bootstrap";
 import styled from "styled-components";
 import { useDispatch, useSelector } from "react-redux";
 import { setItemData, setSelectedItemType } from "redux/slices";
-import { withRouter } from "react-router-dom";
+import { useHistory } from "react-router-dom";
 
-const SearchBar = (props) => {
+export default function SearchBar(props) {
   const [searchInput, setSearchInput] = useState("");
   const [searchData, setSearchData] = useState("");
   const allData = useSelector((state) => state.allData.list);
+  const routerHistory = useHistory();
   const dispatch = useDispatch();
 
   const handleKeyPress = (event) => {
@@ -17,7 +18,7 @@ const SearchBar = (props) => {
 
   const search = () => {
     if (searchInput.length < 2) return;
-    props.history.push("/items");
+    routerHistory.push("/items");
     const searchItems = allData.filter((item) =>
       item.name.toLowerCase().includes(searchInput.toLowerCase())
     );
@@ -45,7 +46,7 @@ const SearchBar = (props) => {
       </InputGroup.Append>
     </Wrapper>
   );
-};
+}
 
 const SearchInput = styled.input`
   border: 1px solid #edeff1;
@@ -71,5 +72,3 @@ const Wrapper = styled(InputGroup)`
   max-width: 500px;
   justify-content: flex-end;
 `;
-
-export default withRouter(SearchBar);

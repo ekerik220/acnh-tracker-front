@@ -3,13 +3,14 @@ import styled from "styled-components";
 import { Image } from "react-bootstrap";
 import { setItemData, setSelectedItemType } from "redux/slices";
 import { useDispatch } from "react-redux";
-import { withRouter } from "react-router-dom";
+import { useHistory } from "react-router-dom";
 
-const Logo = (props) => {
+export default function Logo(props) {
   const dispatch = useDispatch();
+  const routerHistory = useHistory();
 
   const handleClick = () => {
-    props.history.push("/");
+    routerHistory.push("/");
     dispatch(setItemData([]));
     dispatch(setSelectedItemType(null));
   };
@@ -19,7 +20,7 @@ const Logo = (props) => {
       <Image src={require("assets/logo.png")} fluid></Image>
     </ImageBox>
   );
-};
+}
 
 const ImageBox = styled.div`
   position: absolute;
@@ -33,5 +34,3 @@ const ImageBox = styled.div`
     display: none;
   }
 `;
-
-export default withRouter(Logo);
