@@ -18,7 +18,10 @@ export default function UserRegister() {
     setLoading(true);
     registerUser(user, email, password).then((res) => {
       if (res.error) setError(res.error);
-      else setFinished(true);
+      else {
+        setFinished(true);
+        setError(null);
+      }
       setLoading(false);
     });
   };
