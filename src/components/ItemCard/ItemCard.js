@@ -50,11 +50,10 @@ const TagBox = styled.div`
   height: 25px;
   transition: background-color 0.5s;
   display: flex;
-  justify-content: end;
+  justify-content: flex-end;
   align-items: center;
 
   i {
-    justify-self: end;
     cursor: pointer;
     color: white;
     margin-right: 5px;
