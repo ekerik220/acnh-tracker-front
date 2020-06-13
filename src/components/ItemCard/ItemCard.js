@@ -15,9 +15,9 @@ export default function ItemCard({ itemData, closeButton = false }) {
   return (
     <OuterBox>
       <TagBox className={owned ? "owned" : wanted ? "wanted" : null}>
-        <i class="fas fa-info-circle" onClick={infoPanelToggle}></i>
+        <i className="fas fa-info-circle" onClick={infoPanelToggle}></i>
         <i
-          class="far fa-times-circle"
+          className="far fa-times-circle"
           onClick={() => dispatch(setPopupData(null))}
           hidden={!closeButton}
         ></i>

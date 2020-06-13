@@ -43,7 +43,7 @@ export default function HaveButton({
         className={loading ? "loading" : selected ? "selected" : null}
         onClick={loading ? null : selected ? removeFromList : addToList}
       >
-        {loading ? <i class="fas fa-spinner fa-spin"></i> : "Have"}
+        {loading ? <i className="fas fa-spinner fa-spin"></i> : "Have"}
       </Button>
     </OverlayTrigger>
   );

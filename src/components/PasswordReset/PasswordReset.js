@@ -63,7 +63,7 @@ function PasswordReset() {
             />
           </Form.Group>
           <Button variant="primary" type="submit" disabled={loading || success}>
-            {!loading ? "Submit" : <i class="fas fa-spinner fa-spin"></i>}
+            {!loading ? "Submit" : <i className="fas fa-spinner fa-spin"></i>}
           </Button>
         </Form>
       </div>

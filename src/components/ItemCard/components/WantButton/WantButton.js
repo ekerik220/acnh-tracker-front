@@ -48,7 +48,7 @@ export default function WantButton({
         className={loading ? "loading" : selected ? "selected" : null}
         onClick={loading ? null : selected ? removeFromWishlist : addToWishlist}
       >
-        {loading ? <i class="fas fa-spinner fa-spin"></i> : "Want"}
+        {loading ? <i className="fas fa-spinner fa-spin"></i> : "Want"}
       </Button>
     </OverlayTrigger>
   );

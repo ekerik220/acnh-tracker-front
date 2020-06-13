@@ -108,7 +108,7 @@ export default function UserRegister() {
               />
             </Form.Group>
             <Button variant="primary" type="submit" disabled={loading}>
-              {!loading ? "Submit" : <i class="fas fa-spinner fa-spin"></i>}
+              {!loading ? "Submit" : <i className="fas fa-spinner fa-spin"></i>}
             </Button>
           </Form>
         </div>

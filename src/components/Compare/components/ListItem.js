@@ -34,7 +34,9 @@ export default function ListItem({ item, wishlistVariations }) {
                   {item.variations.map((v) => (
                     <ToolTipListItem totalBoxes={item.variations.length}>
                       <span key={v}>{v}</span>
-                      {isAWishlistVariation(v) && <i class="fas fa-star"></i>}
+                      {isAWishlistVariation(v) && (
+                        <i className="fas fa-star"></i>
+                      )}
                     </ToolTipListItem>
                   ))}
                 </ToolTipList>
@@ -53,7 +55,7 @@ export default function ListItem({ item, wishlistVariations }) {
             </Tooltip>
           }
         >
-          <i class="fas fa-star"></i>
+          <i className="fas fa-star"></i>
         </OverlayTrigger>
       )}
     </Wrapper>
