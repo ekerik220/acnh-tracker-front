@@ -223,7 +223,6 @@ const PictureBox = styled.div`
 
   img {
     width: 150px;
-    cursor: pointer;
   }
 
   i {
