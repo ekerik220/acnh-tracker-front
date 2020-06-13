@@ -1,9 +1,11 @@
+const BACKEND_URL = "https://acnh-tracker-backend.herokuapp.com";
+
 /*
  * Login
  */
 
 export const handleLogin = async (email, password) => {
-  const endpoint = "http://localhost:4000/user/login";
+  const endpoint = BACKEND_URL + "/user/login";
   const body = {
     email,
     password,
@@ -23,13 +25,13 @@ export const handleLogin = async (email, password) => {
 
 export const forgotPassword = async (email) => {
   console.log(email);
-  const endpoint = "http://localhost:4000/user/forgotpassword/" + email;
+  const endpoint = BACKEND_URL + "/user/forgotpassword/" + email;
   const res = await fetch(endpoint, { method: "POST" });
   return res.json();
 };
 
 export const changePassword = async (token, newPassword) => {
-  const endpoint = "http://localhost:4000/user/changepassword/" + token;
+  const endpoint = BACKEND_URL + "/user/changepassword/" + token;
   const body = { newPassword };
   const options = {
     method: "POST",
@@ -45,19 +47,19 @@ export const changePassword = async (token, newPassword) => {
  */
 
 export const getAllData = async () => {
-  const endpoint = "http://localhost:4000/data/list";
+  const endpoint = BACKEND_URL + "/data/list";
   const res = await fetch(endpoint);
   return res.json();
 };
 
 export const getItemTotals = async () => {
-  const endpoint = "http://localhost:4000/data/count";
+  const endpoint = BACKEND_URL + "/data/count";
   const res = await fetch(endpoint);
   return res.json();
 };
 
 export const searchUser = async (userName) => {
-  const endpoint = "http://localhost:4000/list/" + userName;
+  const endpoint = BACKEND_URL + "/list/" + userName;
   const res = await fetch(endpoint);
   return res.json();
 };
@@ -68,42 +70,30 @@ export const searchUser = async (userName) => {
 
 export const getUserInfo = async (loginToken) => {
   if (!loginToken) return;
-  const endpoint = "http://localhost:4000/user";
+  const endpoint = BACKEND_URL + "/user";
   const options = { headers: { "auth-token": loginToken } };
   const res = await fetch(endpoint, options);
   return res.json();
 };
 
 export const addItemToList = (loginToken, item) => {
-  return postItemToEndpoint(
-    loginToken,
-    "http://localhost:4000/list/addToList",
-    item
-  );
+  return postItemToEndpoint(loginToken, BACKEND_URL + "/list/addToList", item);
 };
 
 export const removeItemFromList = (loginToken, item) => {
-  return postItemToEndpoint(
-    loginToken,
-    "http://localhost:4000/list/listDelete",
-    item
-  );
+  return postItemToEndpoint(loginToken, BACKEND_URL + "/list/listDelete", item);
 };
 
 export const addItemToWishlist = (loginToken, item) => {
   return postItemToEndpoint(
     loginToken,
-    "http://localhost:4000/list/addToWishList",
+    BACKEND_URL + "/list/addToWishList",
     item
   );
 };
 
 export const removeItemFromWishlist = (loginToken, item) => {
-  return postItemToEndpoint(
-    loginToken,
-    "http://localhost:4000/list/wishDelete",
-    item
-  );
+  return postItemToEndpoint(loginToken, BACKEND_URL + "/list/wishDelete", item);
 };
 
 /*
@@ -111,7 +101,7 @@ export const removeItemFromWishlist = (loginToken, item) => {
  */
 
 export const registerUser = async (name, email, password) => {
-  const endpoint = "http://localhost:4000/user/register";
+  const endpoint = BACKEND_URL + "/user/register";
   const body = {
     name,
     email,
@@ -128,13 +118,13 @@ export const registerUser = async (name, email, password) => {
 };
 
 export const confirmEmail = async (userKey) => {
-  const endpoint = "http://localhost:4000/user/confirm/" + userKey;
+  const endpoint = BACKEND_URL + "/user/confirm/" + userKey;
   const res = await fetch(endpoint, { method: "POST" });
   return res.json();
 };
 
 export const resendConfirmationEmail = async (email) => {
-  const endpoint = "http://localhost:4000/user/resend/" + email;
+  const endpoint = BACKEND_URL + "/user/resend/" + email;
   const res = await fetch(endpoint, { method: "POST" });
   return res.json();
 };
