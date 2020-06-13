@@ -44,9 +44,11 @@ export default function CatalogueItem({ item }) {
               <Tooltip>
                 <ToolTipList>
                   {item.variationList.map((v) => (
-                    <TooltipItemBox totalBoxes={item.variationList.length}>
+                    <TooltipItemBox
+                      totalBoxes={item.variationList.length}
+                      key={v}
+                    >
                       <span
-                        key={v}
                         className={
                           variationIsOwned(item.item_name, v)
                             ? "owned"
