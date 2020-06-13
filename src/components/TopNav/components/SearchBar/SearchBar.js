@@ -18,10 +18,14 @@ export default function SearchBar(props) {
 
   const search = () => {
     if (searchInput.length < 2) return;
-    routerHistory.push("/items");
+
     const searchItems = allData.filter((item) =>
       item.name.toLowerCase().includes(searchInput.toLowerCase())
     );
+
+    if (searchItems.length > 0) routerHistory.push("/items");
+    else routerHistory.push("/noresults");
+
     setSearchInput("");
     dispatch(setSelectedItemType(null));
     dispatch(setItemData([]));

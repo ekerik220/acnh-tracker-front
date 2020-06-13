@@ -14,3 +14,4 @@ export { UserRegister } from "./UserRegister";
 export { Compare } from "./Compare";
 export { PasswordReset } from "./PasswordReset";
 export { ForgotPassword } from "./ForgotPassword";
+export { NoResults } from "./NoResults";

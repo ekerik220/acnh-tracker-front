@@ -14,6 +14,7 @@ import {
   Compare,
   PasswordReset,
   ForgotPassword,
+  NoResults,
 } from "components";
 
 function ContentArea() {
@@ -34,6 +35,9 @@ function ContentArea() {
         </Route>
         <Route path="/items">
           <ItemBox />
+        </Route>
+        <Route path="/noresults">
+          <NoResults />
         </Route>
         <Route path="/register">
           <UserRegister />
