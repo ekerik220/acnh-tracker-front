@@ -8,11 +8,13 @@ import {
   CatalogueItemArea,
   CategorySelect,
 } from "./components";
+import { Nav } from "react-bootstrap";
 
 export default function Catalogue() {
   const dispatch = useDispatch();
 
   const userList = useSelector((state) => state.user.list);
+  const userWishlist = useSelector((state) => state.user.wishlist);
   const popupData = useSelector((state) => state.popupData);
   const category = useSelector((state) => state.catalogue.category);
   const itemTotals = useSelector((state) => state.itemTotals.totals);
@@ -20,6 +22,7 @@ export default function Catalogue() {
   const [displayedList, setDisplayedList] = useState(userList);
   const [currentTotal, setCurrentTotal] = useState(1);
   const [currentTotalVariations, setCurrentTotalVariations] = useState(1);
+  const [activeListType, setActiveListType] = useState("owned");
 
   const totalVariations = (data) => {
     let count = 0;
@@ -28,6 +31,16 @@ export default function Catalogue() {
       else count++;
     });
     return count;
+  };
+
+  const changeToOwnedList = () => {
+    setDisplayedList(userList);
+    setActiveListType("owned");
+  };
+
+  const changeToWishlist = () => {
+    setDisplayedList(userWishlist);
+    setActiveListType("wishlist");
   };
 
   useEffect(() => {
@@ -55,27 +68,50 @@ export default function Catalogue() {
         </div>
       )}
       <ListSection>
-        <h3>Catalogue</h3>
+        <TitleArea>
+          <h3>Catalogue</h3>
+          <Nav variant="pills" defaultActiveKey="owned">
+            <Nav.Item>
+              <Nav.Link eventKey="owned" onClick={changeToOwnedList}>
+                Owned
+              </Nav.Link>
+            </Nav.Item>
+            <Nav.Item>
+              <Nav.Link eventKey="wishlist" onClick={changeToWishlist}>
+                Wishlist
+              </Nav.Link>
+            </Nav.Item>
+          </Nav>
+        </TitleArea>
         <CategorySelect />
         <CatalogueItemArea displayedList={displayedList} />
       </ListSection>
       <ProgressBarSection>
         <div>
           <CircularProgress
-            percent={(displayedList.length / currentTotal) * 100}
+            percent={
+              activeListType === "owned"
+                ? (displayedList.length / currentTotal) * 100
+                : 0
+            }
             tooltip={`${displayedList.length} / ${currentTotal}`}
             label="Items"
+            overrideText={activeListType === "wishlist" ? "--" : null}
           ></CircularProgress>
         </div>
         <div>
           <CircularProgress
             percent={
-              (totalVariations(displayedList) / currentTotalVariations) * 100
+              activeListType === "owned"
+                ? (totalVariations(displayedList) / currentTotalVariations) *
+                  100
+                : 0
             }
             tooltip={`${totalVariations(
               displayedList
             )} / ${currentTotalVariations}`}
             label="Variations"
+            overrideText={activeListType === "wishlist" ? "--" : null}
           ></CircularProgress>
         </div>
       </ProgressBarSection>
@@ -128,4 +164,9 @@ const ListSection = styled.div`
   flex-direction: column;
   height: 100%;
   width: 100%;
+`;
+
+const TitleArea = styled.div`
+  display: flex;
+  justify-content: space-between;
 `;

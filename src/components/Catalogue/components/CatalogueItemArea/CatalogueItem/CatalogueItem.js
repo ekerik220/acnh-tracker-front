@@ -7,10 +7,22 @@ import capitalize from "utils/capitalize";
 
 export default function CatalogueItem({ item }) {
   const allData = useSelector((state) => state.allData.list);
+  const userList = useSelector((state) => state.user.list);
+  const userWishlist = useSelector((state) => state.user.wishlist);
   const dispatch = useDispatch();
 
-  const ownVariation = (variation) => {
-    return item.variations.some((v) => v === variation);
+  const variationIsOwned = (itemName, variation) => {
+    return userList.find(
+      (item) =>
+        item.item_name === itemName && item.variations.includes(variation)
+    );
+  };
+
+  const variationIsWishlisted = (itemName, variation) => {
+    return userWishlist.find(
+      (item) =>
+        item.item_name === itemName && item.variations.includes(variation)
+    );
   };
 
   const showItemPopup = () => {
@@ -35,7 +47,13 @@ export default function CatalogueItem({ item }) {
                     <TooltipItemBox totalBoxes={item.variationList.length}>
                       <span
                         key={v}
-                        className={ownVariation(v) ? "owned" : null}
+                        className={
+                          variationIsOwned(item.item_name, v)
+                            ? "owned"
+                            : variationIsWishlisted(item.item_name, v)
+                            ? "wishlist"
+                            : null
+                        }
                       >
                         {v}
                       </span>
@@ -79,6 +97,10 @@ const ToolTipList = styled.div`
 
   .owned {
     color: #00ff00;
+  }
+
+  .wishlist {
+    color: #39cccc;
   }
 `;
 

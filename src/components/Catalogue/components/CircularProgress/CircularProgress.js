@@ -2,10 +2,15 @@ import React from "react";
 import { CircularProgressbar, buildStyles } from "react-circular-progressbar";
 import "react-circular-progressbar/dist/styles.css";
 import { easeQuadInOut } from "d3-ease";
-import {AnimatedProgressProvider} from "./AnimatedProgressProvider";
+import { AnimatedProgressProvider } from "./AnimatedProgressProvider";
 import { OverlayTrigger, Tooltip } from "react-bootstrap";
 
-export default function CircularProgress({ percent, label, tooltip }) {
+export default function CircularProgress({
+  percent,
+  label,
+  tooltip,
+  overrideText,
+}) {
   return (
     <OverlayTrigger overlay={<Tooltip>{tooltip}</Tooltip>}>
       <div
@@ -28,7 +33,7 @@ export default function CircularProgress({ percent, label, tooltip }) {
             return (
               <CircularProgressbar
                 value={value}
-                text={`${fixedValue}%`}
+                text={overrideText || `${fixedValue}%`}
                 styles={buildStyles({ pathTransition: "none" })}
               />
             );
