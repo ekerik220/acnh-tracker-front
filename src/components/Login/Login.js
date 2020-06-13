@@ -28,7 +28,8 @@ export default function Login(props) {
 
   useEffect(() => {
     if (token) routerHistory.push("/");
-  });
+    dispatch(resetLoginError());
+  }, [dispatch, routerHistory, token]);
 
   return (
     <Wrapper>
