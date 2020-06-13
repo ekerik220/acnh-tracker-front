@@ -55,9 +55,10 @@ function ForgotPassword() {
               value={email}
               onChange={handleInputChange}
               required
+              disabled={message}
             />
           </Form.Group>
-          <Button variant="primary" type="submit" disabled={loading}>
+          <Button variant="primary" type="submit" disabled={loading || message}>
             {!loading ? "Submit" : <i className="fas fa-spinner fa-spin"></i>}
           </Button>
         </Form>
