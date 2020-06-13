@@ -136,8 +136,10 @@ function FrontSide({ itemData, owned, wanted, setOwned, setWanted }) {
     if (!selectedVariation) return;
 
     // Put selected class only on selected variant
-    variations.forEach((variation) => variation.classList.remove("selected"));
-    selectedVariation.classList.add("selected");
+    variations.forEach((variation) =>
+      variation.firstChild.classList.remove("selected")
+    );
+    selectedVariation.firstChild.classList.add("selected");
 
     // Scroll variant list if selected variant is out of view
     if (!usingVariationSlider) {
@@ -205,19 +207,20 @@ function FrontSide({ itemData, owned, wanted, setOwned, setWanted }) {
           <div ref={variationsArea}>
             {variants.length > 1
               ? variants.map((variant, index) => (
-                  <VariantImage
-                    key={index}
-                    border={
-                      ownedWantedVariations[variant.name] === "owned"
-                        ? "3px solid #2ecc40"
-                        : ownedWantedVariations[variant.name] === "wanted"
-                        ? "3px solid #0074d9"
-                        : "1px solid grey"
-                    }
-                    src={img_url_prefix + variant.img + ".png"}
-                    onClick={() => setSelectedVariationIndex(index)}
-                    alt=""
-                  />
+                  <div key={index}>
+                    <VariantImage
+                      border={
+                        ownedWantedVariations[variant.name] === "owned"
+                          ? "3px solid #2ecc40"
+                          : ownedWantedVariations[variant.name] === "wanted"
+                          ? "3px solid #0074d9"
+                          : "1px solid grey"
+                      }
+                      src={img_url_prefix + variant.img + ".png"}
+                      onClick={() => setSelectedVariationIndex(index)}
+                      alt=""
+                    />
+                  </div>
                 ))
               : null}
           </div>
