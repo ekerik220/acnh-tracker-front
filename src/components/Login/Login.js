@@ -55,7 +55,7 @@ export default function Login(props) {
               placeholder="Password"
               value={password}
               onChange={handlePasswordInputChange}
-              minlength={6}
+              minLength={6}
               required
             />
           </Form.Group>

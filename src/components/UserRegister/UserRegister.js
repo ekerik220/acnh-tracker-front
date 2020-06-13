@@ -88,8 +88,8 @@ export default function UserRegister() {
                 value={user}
                 onChange={(e) => setUser(e.target.value)}
                 required
-                minlength={2}
-                maxlength={20}
+                minLength={2}
+                maxLength={20}
                 pattern="^(?=[a-zA-Z0-9._-]*$)(?!.*[-_.]{2})[^-_.].*[^-_.]$"
                 onInvalid={handleInvalidInput}
                 onInput={(e) => e.target.setCustomValidity("")}
@@ -103,7 +103,7 @@ export default function UserRegister() {
                 placeholder="Password"
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
-                minlength={6}
+                minLength={6}
                 required
               />
             </Form.Group>
