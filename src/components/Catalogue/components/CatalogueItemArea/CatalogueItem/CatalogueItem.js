@@ -1,5 +1,5 @@
-import React from "react";
-import styled from "styled-components";
+import React, { Children } from "react";
+import styled, { css } from "styled-components";
 import { Badge, OverlayTrigger, Tooltip } from "react-bootstrap";
 import { useSelector, useDispatch } from "react-redux";
 import { setPopupData } from "redux/slices";
@@ -32,9 +32,14 @@ export default function CatalogueItem({ item }) {
               <Tooltip>
                 <ToolTipList>
                   {item.variationList.map((v) => (
-                    <span key={v} className={ownVariation(v) ? "owned" : null}>
-                      {v}
-                    </span>
+                    <TooltipItemBox totalBoxes={item.variationList.length}>
+                      <span
+                        key={v}
+                        className={ownVariation(v) ? "owned" : null}
+                      >
+                        {v}
+                      </span>
+                    </TooltipItemBox>
                   ))}
                 </ToolTipList>
               </Tooltip>
@@ -66,10 +71,34 @@ const Wrapper = styled.div`
 const ToolTipList = styled.div`
   display: grid;
   text-align: left;
-  grid-template-columns: 1fr 1fr;
-  grid-gap: 10px;
+  grid-template-columns: auto auto min-content;
+
+  span {
+    padding: 3px;
+  }
 
   .owned {
     color: #00ff00;
   }
+`;
+
+const TooltipItemBox = styled.div`
+  white-space: nowrap;
+  ${(props) =>
+    props.totalBoxes === 2
+      ? css`
+          &:nth-child(1) {
+            border-right: 1px solid white;
+            padding-right: 5px;
+            margin-right: 5px;
+          }
+        `
+      : props.totalBoxes > 2
+      ? css`
+          &:not(:nth-child(3n)) {
+            border-right: 1px solid white;
+            padding-right: 5px;
+            margin-right: 5px;
+        `
+      : null}
 `;

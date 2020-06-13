@@ -1,5 +1,5 @@
 import React from "react";
-import styled from "styled-components";
+import styled, { css } from "styled-components";
 import { Badge, OverlayTrigger, Tooltip } from "react-bootstrap";
 import { useSelector, useDispatch } from "react-redux";
 import { setPopupData } from "redux/slices";
@@ -32,7 +32,7 @@ export default function ListItem({ item, wishlistVariations }) {
               <Tooltip>
                 <ToolTipList>
                   {item.variations.map((v) => (
-                    <ToolTipListItem>
+                    <ToolTipListItem totalBoxes={item.variations.length}>
                       <span key={v}>{v}</span>
                       {isAWishlistVariation(v) && <i class="fas fa-star"></i>}
                     </ToolTipListItem>
@@ -83,7 +83,7 @@ const Wrapper = styled.div`
 const ToolTipList = styled.div`
   display: grid;
   text-align: left;
-  grid-template-columns: 1fr min-content;
+  grid-template-columns: auto auto min-content;
 
   span {
     padding: 3px;
@@ -101,4 +101,23 @@ const ToolTipListItem = styled.div`
     color: #0074d9;
     align-self: center;
   }
+
+  ${(props) =>
+    props.totalBoxes === 2
+      ? css`
+          &:nth-child(1) {
+            border-right: 1px solid white;
+            padding-right: 5px;
+            margin-right: 5px;
+          }
+        `
+      : props.totalBoxes > 2
+      ? css`
+          &:not(:nth-child(3n)) {
+            border-right: 1px solid white;
+            padding-right: 5px;
+            margin-right: 5px;
+          }
+        `
+      : null}
 `;
