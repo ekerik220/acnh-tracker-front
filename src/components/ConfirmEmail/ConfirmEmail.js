@@ -28,7 +28,7 @@ export default function ConfirmEmail() {
           </span>
         ) : confirmed ? (
           <span>
-            Email confirmed! Please <a href="/login">login</a>
+            Email confirmed! Please <a href="/login">login</a>.
           </span>
         ) : error ? (
           <span className="error">{error}</span>
