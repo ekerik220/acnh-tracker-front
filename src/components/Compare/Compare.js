@@ -126,6 +126,10 @@ export default function Compare() {
       setItemsYouNeedWishlistFilter(!itemsYouNeedWishlistFilter);
   };
 
+  const handleKeyPress = (event) => {
+    if (event.key === "Enter") fetchUser();
+  };
+
   return (
     <Wrapper>
       {popupData && (
@@ -141,6 +145,7 @@ export default function Compare() {
             placeholder="Search user"
             value={searchField}
             onChange={searchFieldOnChange}
+            onKeyPress={handleKeyPress}
           />
           <InputGroup.Prepend>
             <Button variant="outline-secondary" onClick={fetchUser}>
