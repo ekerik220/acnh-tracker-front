@@ -1,14 +1,17 @@
 import React from "react";
 import styled from "styled-components";
+import GracefulImage from "react-graceful-image";
 
 export default function HomeScreen() {
   return (
     <Wrapper>
       <CenterImage>
         <div>
-          <img
+          <GracefulImage
             src={require("assets/leaf.jpg")}
             alt="Animal Crossing leaf logo"
+            placeholderColor="white"
+            noLazyLoad
           />
         </div>
       </CenterImage>
