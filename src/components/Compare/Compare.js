@@ -147,11 +147,11 @@ export default function Compare() {
             onChange={searchFieldOnChange}
             onKeyPress={handleKeyPress}
           />
-          <InputGroup.Prepend>
+          <InputGroup.Append>
             <Button variant="primary" onClick={fetchUser}>
               <i class="fas fa-search"></i>
             </Button>
-          </InputGroup.Prepend>
+          </InputGroup.Append>
         </InputGroup>
       </SearchArea>
       <ListArea>
