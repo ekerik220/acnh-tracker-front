@@ -37,7 +37,7 @@ export default function CatalogueItem({ item }) {
   return (
     <Wrapper onClick={showItemPopup}>
       <span>{capitalize(item.item_name)}</span>
-      <div className="variations-badge">
+      <div onClick={(e) => e.stopPropagation()} className="variations-badge">
         {item.variationList.length > 1 && (
           <OverlayTrigger
             overlay={
