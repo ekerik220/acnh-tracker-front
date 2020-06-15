@@ -148,7 +148,11 @@ export default function Compare() {
             onKeyPress={handleKeyPress}
           />
           <InputGroup.Append>
-            <Button variant="primary" onClick={fetchUser}>
+            <Button
+              style={{ fontSize: 16 }}
+              variant="primary"
+              onClick={fetchUser}
+            >
               <i class="fas fa-search"></i>
             </Button>
           </InputGroup.Append>
