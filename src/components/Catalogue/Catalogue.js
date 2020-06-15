@@ -34,12 +34,10 @@ export default function Catalogue() {
   };
 
   const changeToOwnedList = () => {
-    setDisplayedList(userList);
     setActiveListType("owned");
   };
 
   const changeToWishlist = () => {
-    setDisplayedList(userWishlist);
     setActiveListType("wishlist");
   };
 
@@ -48,17 +46,16 @@ export default function Catalogue() {
   }, [dispatch]);
 
   useEffect(() => {
+    const list = activeListType === "owned" ? userList : userWishlist;
     if (category === "all") {
-      setDisplayedList(userList);
+      setDisplayedList(list);
     } else {
-      const filteredList = userList.filter(
-        (item) => item.category === category
-      );
+      const filteredList = list.filter((item) => item.category === category);
       setDisplayedList(filteredList);
     }
     setCurrentTotal(itemTotals[category] || 1);
     setCurrentTotalVariations(itemTotals[category + "_v"] || 1);
-  }, [category, itemTotals, userList]);
+  }, [category, itemTotals, userList, activeListType, userWishlist]);
 
   return (
     <Wrapper>
