@@ -20,8 +20,8 @@ export default function Catalogue() {
   const itemTotals = useSelector((state) => state.itemTotals.totals);
 
   const [displayedList, setDisplayedList] = useState(userList);
-  const [currentTotal, setCurrentTotal] = useState(1);
-  const [currentTotalVariations, setCurrentTotalVariations] = useState(1);
+  const [currentTotal, setCurrentTotal] = useState(null);
+  const [currentTotalVariations, setCurrentTotalVariations] = useState(null);
   const [activeListType, setActiveListType] = useState("owned");
 
   const totalVariations = (data) => {
@@ -53,8 +53,10 @@ export default function Catalogue() {
       const filteredList = list.filter((item) => item.category === category);
       setDisplayedList(filteredList);
     }
-    setCurrentTotal(itemTotals[category] || 1);
-    setCurrentTotalVariations(itemTotals[category + "_v"] || 1);
+    if (itemTotals[category] && itemTotals[category + "_v"]) {
+      setCurrentTotal(itemTotals[category]);
+      setCurrentTotalVariations(itemTotals[category + "_v"]);
+    }
   }, [category, itemTotals, userList, activeListType, userWishlist]);
 
   return (
@@ -87,7 +89,7 @@ export default function Catalogue() {
         <div>
           <CircularProgress
             percent={
-              activeListType === "owned"
+              activeListType === "owned" && currentTotal
                 ? (displayedList.length / currentTotal) * 100
                 : 0
             }
@@ -99,7 +101,7 @@ export default function Catalogue() {
         <div>
           <CircularProgress
             percent={
-              activeListType === "owned"
+              activeListType === "owned" && currentTotalVariations
                 ? (totalVariations(displayedList) / currentTotalVariations) *
                   100
                 : 0
