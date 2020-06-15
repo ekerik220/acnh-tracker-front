@@ -148,8 +148,8 @@ export default function Compare() {
             onKeyPress={handleKeyPress}
           />
           <InputGroup.Prepend>
-            <Button variant="outline-secondary" onClick={fetchUser}>
-              Search
+            <Button variant="primary" onClick={fetchUser}>
+              <i class="fas fa-search"></i>
             </Button>
           </InputGroup.Prepend>
         </InputGroup>
