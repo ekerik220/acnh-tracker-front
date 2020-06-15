@@ -8,7 +8,7 @@ export default function HomeScreen() {
       <CenterImage>
         <div>
           <GracefulImage
-            src={require("assets/leaf.jpg")}
+            src="https://terimeos.sirv.com/Images/leaf.jpg"
             alt="Animal Crossing leaf logo"
             placeholderColor="white"
             noLazyLoad

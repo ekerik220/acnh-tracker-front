@@ -17,7 +17,7 @@ export default function Logo(props) {
 
   return (
     <ImageBox onClick={handleClick}>
-      <Image src={require("assets/logo.png")} fluid></Image>
+      <Image src="https://terimeos.sirv.com/Images/logo.png" fluid></Image>
     </ImageBox>
   );
 }
