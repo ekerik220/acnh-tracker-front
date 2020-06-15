@@ -168,4 +168,5 @@ const ListSection = styled.div`
 const TitleArea = styled.div`
   display: flex;
   justify-content: space-between;
+  margin-bottom: 10px;
 `;
